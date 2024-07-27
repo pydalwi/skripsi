@@ -34,100 +34,100 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
 
     // Mata Kuliah
-    Route::resource('matkul', MatkulController::class)->parameter('matkul', 'id');
-    Route::post('matkul/list', [MatkulController::class, 'list']);
-    Route::get('matkul/{id}/delete', [MatkulController::class, 'confirm']);
-
-    // Cpl Sndikti
-    Route::resource('cplsndikti', CplSndiktiController::class)->parameter('cplsndikti', 'id');
-    Route::post('cplsndikti/list', [CplSndiktiController::class, 'list']);
-    Route::get('cplsndikti/{id}/delete', [CplSndiktiController::class, 'confirm']);
-
-     // Cpl Prodi
-     Route::resource('cplprodi', CplProdiController::class)->parameter('cplprodi', 'id');
-     Route::post('cplprodi/list', [CplProdiController::class, 'list']);
-     Route::get('cplprodi/{id}/delete', [CplProdiController::class, 'confirm']);
-
-    // Prodi
-    Route::resource('prodi', ProdiController::class)->parameter('prodi', 'id');
-    Route::post('prodi/list', [ProdiController::class, 'list']);
-    Route::get('prodi/{id}/delete', [ProdiController::class, 'confirm']);
-     
-    // Bahan Kajian
-     Route::resource('bahan_kajian', BahanKajianController::class)->parameter('bahan_kajian', 'id');
-     Route::post('bahan_kajian/list', [BahanKajianController::class, 'list']);
-     Route::get('bahan_kajian/{id}/delete', [BahanKajianController::class, 'confirm']);
-
-    // Profil Lulusan
-    Route::resource('profil_lulusan', PLController::class)->parameter('profil_lulusan', 'id');
-    Route::post('profil_lulusan/list', [PLController::class, 'list']);
-    Route::get('profil_lulusan/{id}/delete', [PLController::class, 'confirm']);
-
-    // Rumpun Mata Kuliah
-    Route::resource('rumpunmk', RumpunMkController::class)->parameter('rumpun_mk', 'id');
-    Route::post('rumpunmk/list', [RumpunMkController::class, 'list']);
-    Route::get('rumpunmk/{id}/delete', [RumpunMkController::class, 'confirm']);
-
-    });
-
+   Route::resource('matkul', MatkulController::class)->parameter('matkul', 'id');
+//   Route::post('matkul/list', [MatkulController::class, 'list']);
+//   Route::get('matkul/{id}/delete', [MatkulController::class, 'confirm']);
+//
+//   // Cpl Sndikti
+   Route::resource('cplsndikti', CplSndiktiController::class)->parameter('cplsndikti', 'id');
+//   Route::post('cplsndikti/list', [CplSndiktiController::class, 'list']);
+//   Route::get('cplsndikti/{id}/delete', [CplSndiktiController::class, 'confirm']);
+//
+//    // Cpl Prodi
+    Route::resource('cplprodi', CplProdiController::class)->parameter('cplprodi', 'id');
+//    Route::post('cplprodi/list', [CplProdiController::class, 'list']);
+//    Route::get('cplprodi/{id}/delete', [CplProdiController::class, 'confirm']);
+//
+//   // Prodi
+   Route::resource('prodi', ProdiController::class)->parameter('prodi', 'id');
+//   Route::post('prodi/list', [ProdiController::class, 'list']);
+//   Route::get('prodi/{id}/delete', [ProdiController::class, 'confirm']);
+//    
+   // Bahan Kajian
+    Route::resource('bahan_kajian', BahanKajianController::class)->parameter('bahan_kajian', 'id');
+//    Route::post('bahan_kajian/list', [BahanKajianController::class, 'list']);
+//    Route::get('bahan_kajian/{id}/delete', [BahanKajianController::class, 'confirm']);
+//
+   // Profil Lulusan
+   Route::resource('profil_lulusan', PLController::class)->parameter('profil_lulusan', 'id');
+//   Route::post('profil_lulusan/list', [PLController::class, 'list']);
+//   Route::get('profil_lulusan/{id}/delete', [PLController::class, 'confirm']);
+//
+   // Rumpun Mata Kuliah
+   Route::resource('rumpunmk', RumpunMkController::class)->parameter('rumpun_mk', 'id');
+//   Route::post('rumpunmk/list', [RumpunMkController::class, 'list']);
+//   Route::get('rumpunmk/{id}/delete', [RumpunMkController::class, 'confirm']);
+//
+   });
+//
 //Referensi
 // Route::group(['prefix' => 'reference', 'middleware' => ['auth']], function() {
 
-   
-    // Referensi
-   // Route::resource('referensi', ReferensiController::class)->parameter('referensi', 'id');
-   // Route::post('referensi/list', [ReferensiController::class, 'list']);
-   // Route::get('referensi/{id}/delete', [ReferensiController::class, 'confirm']);
-   // 
-   // // Pokok Bahasan
-   // Route::resource('pokok_bahasan', PokokBahasanController::class)->parameter('pokok_bahasan', 'id');
-   // Route::post('pokok_bahasan/list', [PokokBahasanController::class, 'list']);
-   // Route::get('pokok_bahasan/{id}/delete', [PokokBahasanController::class, 'confirm']);
+  
+   // Referensi
+  // Route::resource('referensi', ReferensiController::class)->parameter('referensi', 'id');
+  // Route::post('referensi/list', [ReferensiController::class, 'list']);
+  // Route::get('referensi/{id}/delete', [ReferensiController::class, 'confirm']);
+  // 
+  // // Pokok Bahasan
+  // Route::resource('pokok_bahasan', PokokBahasanController::class)->parameter('pokok_bahasan', 'id');
+  // Route::post('pokok_bahasan/list', [PokokBahasanController::class, 'list']);
+  // Route::get('pokok_bahasan/{id}/delete', [PokokBahasanController::class, 'confirm']);
 // });
 
 //Data
-Route::group(['prefix' => 'data', 'middleware' => ['auth']], function() {
+route::group(['prefix' => 'data', 'middleware' => ['auth']], function() {
 
-    // Kurikulum 
-    Route::resource('kurikulum', KurikulumController::class)->parameter('kurikulum', 'id');
-    Route::post('kurikulum/list', [KurikulumController::class, 'list']);
-    Route::get('kurikulum/{id}/delete', [KurikulumController::class, 'confirm']);
+   // Kurikulum 
+   Route::resource('kurikulum', KurikulumController::class)->parameter('kurikulum', 'id');
+//   Route::post('kurikulum/list', [KurikulumController::class, 'list']);
+//   Route::get('kurikulum/{id}/delete', [KurikulumController::class, 'confirm']);
 
-    // Kurikulum Matakuliah
-    // Route::resource('kurikulum_mk', KurikulumMkController::class)->parameter('kurikulumMk', 'id');
-    // Route::post('kurikulum_mk/list', [KurikulumMkController::class, 'list']);
-    // Route::get('kurikulum_mk/{id}/delete', [KurikulumMkController::class, 'confirm']);
+   // Kurikulum Matakuliah
+   // Route::resource('kurikulum_mk', KurikulumMkController::class)->parameter('kurikulumMk', 'id');
+   // Route::post('kurikulum_mk/list', [KurikulumMkController::class, 'list']);
+   // Route::get('kurikulum_mk/{id}/delete', [KurikulumMkController::class, 'confirm']);
 
-    // CPMK
-    Route::resource('cpmk', CpmkController::class)->parameter('cpmk', 'id');
-    Route::post('cpmk/list', [CpmkController::class, 'list']);
-    Route::get('cpmk/{id}/delete', [CpmkController::class, 'confirm']);
+//   // CPMK
+   Route::resource('cpmk', CpmkController::class)->parameter('cpmk', 'id');
+//  Route::post('cpmk/list', [CpmkController::class, 'list']);
+//   Route::get('cpmk/{id}/delete', [CpmkController::class, 'confirm']);
 
-     // CPMK DETAIL
-    Route::resource('cpmkdetail', CpmkDetailController::class)->parameter('cpmkdetail', 'id');
-    Route::post('cpmkdetail/list', [CpmkDetailController::class, 'list']);
-    Route::get('cpmkdetail/{id}/delete', [CpmkDetailController::class, 'confirm']);
+//    // CPMK DETAIL
+   Route::resource('cpmkdetail', CpmkDetailController::class)->parameter('cpmkdetail', 'id');
+//   Route::post('cpmkdetail/list', [CpmkDetailController::class, 'list']);
+//   Route::get('cpmkdetail/{id}/delete', [CpmkDetailController::class, 'confirm']);
 
-    // KAPRODI
-    Route::resource('kaprodi', KaprodiController::class)->parameter('kaprodi', 'id');
-    Route::post('kaprodi/list', [KaprodiController::class, 'list']);
-    Route::get('kaprodi/{id}/delete', [KaprodiController::class, 'confirm']);
-    
-    // CPL PL 
-    Route::resource('cplpl', CplPlController::class)->parameter('cplpl', 'id');
-    Route::post('cplpl/list', [CplPlController::class, 'list']);
-    Route::get('cplpl/{id}/delete', [CplPlController::class, 'confirm']);
+//   // KAPRODI
+   Route::resource('kaprodi', KaprodiController::class)->parameter('kaprodi', 'id');
+//   Route::post('kaprodi/list', [KaprodiController::class, 'list']);
+//   Route::get('kaprodi/{id}/delete', [KaprodiController::class, 'confirm']);
+   
+//   // CPL PL 
+   Route::resource('cplpl', CplPlController::class)->parameter('cplpl', 'id');
+//   Route::post('cplpl/list', [CplPlController::class, 'list']);
+//   Route::get('cplpl/{id}/delete', [CplPlController::class, 'confirm']);
+//
+   // CPL MATRIKS
+   Route::resource('cplmatriks', CplMatriksController::class)->parameter('cplmatriks', 'id');
+//   // Route::post('cplmatriks/list', [CplMatriksController::class, 'list']);
+//   // Route::get('cplmatriks/{id}/delete', [CplMatriksController::class, 'create']);
 
-    // CPL MATRIKS
-    Route::resource('cplmatriks', CplMatriksController::class)->parameter('cplmatriks', 'id');
-    // Route::post('cplmatriks/list', [CplMatriksController::class, 'list']);
-    // Route::get('cplmatriks/{id}/delete', [CplMatriksController::class, 'create']);
-
-    //  CPL MK
-    Route::resource('cplmk', CplMkController::class)->parameter('cplmk','id');
-        
-    // Struktur MK CPL
-    Route::resource('strukturmkcpl', StrukturmkController::class)->parameter('strukturmkcpl','id');
+   //  CPL MK
+   Route::resource('cplmk', CplMkController::class)->parameter('cplmk','id');
+       
+   // Struktur MK CPL
+   Route::resource('strukturmkcpl', StrukturmkController::class)->parameter('strukturmkcpl','id');
 });
 
 //Settings
@@ -155,24 +155,24 @@ Route::group(['prefix' => 'setting', 'middleware' => ['auth']], function() {
    
     // MKBK
     Route::resource('mkbk', MkBkController::class)->parameter('t_mk_bk', 'id');
-    Route::post('mkbk/list', [MkBkController::class, 'list']);
-    Route::get('mkbk/{id}/delete', [MkBkController::class, 'confirm']);
+    //Route::post('mkbk/list', [MkBkController::class, 'list']);
+    //Route::get('mkbk/{id}/delete', [MkBkController::class, 'confirm']);
         
     // CPL BK
     Route::resource('cplbk', CplBkController::class)->parameter('CplBk', 'id');
-    Route::post('bplbk/list', [CplBkController::class, 'list']);
-    Route::get('cplbk/{id}/delete', [CplBkController::class, 'confirm']);
+    //Route::post('bplbk/list', [CplBkController::class, 'list']);
+   // Route::get('cplbk/{id}/delete', [CplBkController::class, 'confirm']);
     
     // CPL CPMK
      Route::resource('cplcpmk', CplCpmkController::class)->parameter('CplCpmk', 'id');
-     Route::post('cplcpmk/list', [CplCpmkController::class, 'list']);
-     Route::get('cplcpmk/{id}/delete', [CplCpmkController::class, 'confirm']);
+     //Route::post('cplcpmk/list', [CplCpmkController::class, 'list']);
+     //Route::get('cplcpmk/{id}/delete', [CplCpmkController::class, 'confirm']);
 
 
     // CPL BK MK
     Route::resource('cplbkmk', CplBkMKController::class)->parameter('CplBkMk', 'id');
-    Route::post('cplbkmk/list', [CplBkMKController::class, 'list']);
-    Route::get('cplbkmk/{id}/delete', [CplBkMKController::class, 'confirm']);
+    //Route::post('cplbkmk/list', [CplBkMKController::class, 'list']);
+    //Route::get('cplbkmk/{id}/delete', [CplBkMKController::class, 'confirm']);
     
     // Tahap Mekanisme Penilaian
     Route::resource('mekanispenilaian', TahapMekanismePenilaianController::class);
@@ -181,23 +181,23 @@ Route::group(['prefix' => 'setting', 'middleware' => ['auth']], function() {
 
     // Bobot Penilaian CPL MK CPMK
     Route::resource('bobotpenilaicpl', BobotpenilaiancplmkcpmkController::class);
-    Route::post('bobotpenilaicpl/list', [BobotpenilaiancplmkcpmkController::class, 'list']);
-    Route::get('bobotpenilaicpl/{id}/delete', [BobotpenilaiancplmkcpmkController::class, 'confirm']);
+    //Route::post('bobotpenilaicpl/list', [BobotpenilaiancplmkcpmkController::class, 'list']);
+    //Route::get('bobotpenilaicpl/{id}/delete', [BobotpenilaiancplmkcpmkController::class, 'confirm']);
 
     // Bobot Penilaian  MK CPL CPMK
     Route::resource('bobotpenilaimk', BobotpenilaianmkcplcpmkController::class);
-    Route::post('bobotpenilaimk/list', [BobotpenilaianmkcplcpmkController::class, 'list']);
-    Route::get('bobotpenilaimk/{id}/delete', [BobotpenilaianmkcplcpmkController::class, 'confirm']);
+    //Route::post('bobotpenilaimk/list', [BobotpenilaianmkcplcpmkController::class, 'list']);
+    //Route::get('bobotpenilaimk/{id}/delete', [BobotpenilaianmkcplcpmkController::class, 'confirm']);
   
     // Rumusan Akhir MK
     Route::resource('rumusanakhirmk', RumusanakhirmkController::class);
-    Route::post('rumusanakhirmk/list', [RumusanakhirmkController::class, 'list']);
-    Route::get('rumusanakhirmk/{id}/delete', [RumusanakhirmkController::class, 'confirm']);
+   // Route::post('rumusanakhirmk/list', [RumusanakhirmkController::class, 'list']);
+   // Route::get('rumusanakhirmk/{id}/delete', [RumusanakhirmkController::class, 'confirm']);
   
     // Rumusan Akhir CPL
     Route::resource('rumusanakhircpl', RumusanakhircplController::class);
-    Route::post('rumusanakhircpl/list', [RumusanakhircplController::class, 'list']);
-    Route::get('rumusanakhircpl/{id}/delete', [RumusanakhircplController::class, 'confirm']);
+  //  Route::post('rumusanakhircpl/list', [RumusanakhircplController::class, 'list']);
+  //  Route::get('rumusanakhircpl/{id}/delete', [RumusanakhircplController::class, 'confirm']);
 });
   
   
