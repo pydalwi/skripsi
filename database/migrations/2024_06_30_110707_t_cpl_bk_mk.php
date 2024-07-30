@@ -16,9 +16,9 @@ class TCplBkMk extends Migration
         //
         Schema::create('t_cpl_bk_mk', function (Blueprint $table) {
             $table->id('cpl_bk_mk_id');
-            $table->unsignedBigInteger('cpl_prodi_id')->nullable()->index();
-            $table->unsignedBigInteger('mk_id')->nullable()->index();
-            $table->unsignedBigInteger('cpl_bk_id')->nullable()->index();
+            $table->unsignedBigInteger('cpl_prodi_id')->index();
+            $table->unsignedBigInteger('mk_id')->index();
+            $table->unsignedBigInteger('cpl_bk_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();
             $table->dateTime('updated_at')->nullable();

@@ -16,6 +16,7 @@ class DCplMk extends Migration
         Schema::create('d_cpl_mk', function (Blueprint $table) {
             $table->id('cpl_mk_id');
             $table->boolean('is_active')->default(false);
+            $table->tinyInteger('cpl_mk_check')->default(0);
             $table->string('mk_nama');
             $table->unsignedBigInteger('cpl_prodi_id')->nullable()->index();
             $table->unsignedBigInteger('mk_id')->nullable()->index();

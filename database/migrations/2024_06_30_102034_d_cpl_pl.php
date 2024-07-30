@@ -17,7 +17,7 @@ class DCplPl extends Migration
         Schema::create('d_cpl_pl', function (Blueprint $table) {
             $table->id('cpl_pl_id');
             $table->boolean('is_active')->default(false);
-            $table->tinyInteger('cpl_pl_check')->default(1);
+            $table->tinyInteger('cpl_pl_check')->default(0);
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();
             $table->dateTime('updated_at')->nullable();

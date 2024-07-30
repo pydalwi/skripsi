@@ -16,6 +16,7 @@ class MRumpunMk extends Migration
         //
         Schema::create('m_rumpun_mk', function (Blueprint $table) {
             $table->id('rumpun_mk_id');
+            $table->string('rumpun_mk', 100)->index();
             $table->smallInteger('sks');
             $table->smallInteger('semester');
             $table->integer('jumlah_mk');
@@ -23,7 +24,7 @@ class MRumpunMk extends Migration
             $table->string('Mk_pil');
             $table->string('MKWK');
             $table->tinyInteger('mk_jenis')->unsigned();
-            $table->unsignedBigInteger('dosen_id')->index();
+            $table->unsignedBigInteger('dosen_id')->index()->nullable();
             $table->unsignedBigInteger('kurikulum_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();

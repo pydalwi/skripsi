@@ -23,6 +23,7 @@ class DStrukturmk extends Migration
             $table->string('MKWK');
             $table->tinyInteger('mk_jenis')->unsigned();
             $table->boolean('is_active')->default(false);
+            $table->tinyInteger('struktur_mk_check')->default(0);
             $table->unsignedBigInteger('mk_id')->index();
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();

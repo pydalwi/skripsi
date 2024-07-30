@@ -16,8 +16,7 @@ class DKurikulum extends Migration
         //
         Schema::create('d_kurikulum', function (Blueprint $table) {
             $table->id('kurikulum_id');
-            $table->string('kurikulum_nama');
-            $table->year('kurikulum_tahun');
+            $table->year('kurikulum_tahun')->index();
             $table->unsignedBigInteger('prodi_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();

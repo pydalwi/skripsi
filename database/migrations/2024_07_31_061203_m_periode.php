@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MProfilLulusan extends Migration
+class MPeriode extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,21 @@ class MProfilLulusan extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('m_profil_lulusan', function (Blueprint $table) {
-            $table->id('pl_id');
-            $table->longText('deskripsi_pl')->index();
-            $table->unsignedBigInteger('prodi_id')->index();
+        Schema::create('m_periode', function (Blueprint $table) {
+            $table->id('periode_id');
+            $table->string('periode_name', 100);
+            $table->enum('periode_semester', ['Ganjil', 'Genap']);
+            $table->tinyInteger('is_active')->default(0);
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();
             $table->dateTime('updated_at')->nullable();
             $table->integer('updated_by')->nullable()->index();
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
-            //prodi   
-            $table->index(name:'fk_pl_prodi1_idx',columns:'prodi_id');
-            $table->foreign(columns:'prodi_id',name:'fk_pl_prodi1')->references('prodi_id')->on('m_prodi')->noActionOnDelete()->noActionOnUpdate();
-           });
+        });
+        Schema::table('d_kurikulum_mk', function (Blueprint $table) {
+            $table->foreign('periode_id')->references('periode_id')->on('m_periode'); // Tambahkan FK yang baru
+        });
     }
 
     /**
@@ -37,7 +37,6 @@ class MProfilLulusan extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('m_profil_lulusan');
+        Schema::dropIfExists('m_periode');
     }
 }

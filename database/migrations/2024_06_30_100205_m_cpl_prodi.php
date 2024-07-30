@@ -16,9 +16,9 @@ class MCplProdi extends Migration
         //
         Schema::create('m_cpl_prodi', function (Blueprint $table) {
             $table->id('cpl_prodi_id');
-            $table->string('cpl_prodi_kategori',100);
-            $table->string('cpl_prodi_kode',10);
-            $table->longText('cpl_prodi_deskripsi');
+            $table->string('cpl_prodi_kategori',100)->nullable();
+            $table->string('cpl_prodi_kode',10)->index();
+            $table->longText('cpl_prodi_deskripsi')->nullable();
             $table->unsignedBigInteger('prodi_id')->nullable()->index();
             $table->unsignedBigInteger('pl_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();

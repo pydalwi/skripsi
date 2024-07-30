@@ -16,8 +16,8 @@ class DKaprodi extends Migration
         // 
         Schema::create('d_kaprodi', function (Blueprint $table) {
             $table->id('kaprodi_id');
-            $table->string('kaprodi_nama');
-            $table->year('kaprodi_tahun');
+            $table->unsignedBigInteger('dosen_id')->index();
+            $table->year('tahun')->index();
             $table->unsignedBigInteger('prodi_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();
@@ -27,7 +27,7 @@ class DKaprodi extends Migration
             $table->integer('deleted_by')->nullable()->index();
             $table->index(name:'fk_kaprodi_prodi1_idx',columns:'prodi_id');
             $table->foreign(columns:'prodi_id',name:'fk_kaprodi_prodi1')->references('prodi_id')->on('m_prodi')->noActionOnDelete()->noActionOnUpdate();
-            
+            $table->foreign('dosen_id')->references('dosen_id')->on('d_dosen');
         });
     }
 

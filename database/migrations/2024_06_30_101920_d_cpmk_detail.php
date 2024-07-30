@@ -16,7 +16,8 @@ class DCpmkDetail extends Migration
         //
         Schema::create('d_cpmk_detail', function (Blueprint $table) {
             $table->id('cpmk_detail_id');
-            $table->string('subcpmk_nama');
+            $table->string('sub_cpmk_kode')->nullable();
+            $table->text('uraian_sub_cpmk')->nullable();
             $table->unsignedBigInteger('cpmk_id')->index();
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->unsignedBigInteger('mk_id')->index();

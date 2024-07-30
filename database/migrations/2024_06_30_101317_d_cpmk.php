@@ -16,8 +16,8 @@ class DCpmk extends Migration
         //
         Schema::create('d_cpmk', function (Blueprint $table) {
             $table->id('cpmk_id');
-            $table->string('cpmk_kode');
-            $table->longText('cpmk_deskripsi');
+            $table->string('cpmk_kode')->unique()->nullable();
+            $table->longText('cpmk_deskripsi')->nullable();
             $table->unsignedBigInteger('mk_id')->index();
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
