@@ -72,4 +72,26 @@ class CplMatriksModel extends AppModel
         return $prodi;
 
     }
+
+
+
+    public static function updateMatriks($prodi_id, $matriks){
+        self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
+
+        if(is_array($matriks) && count($matriks) > 0){
+            $ins = [];
+            foreach($matriks as $cpl_sndikti_id => $val){
+                foreach($val as $cpl_prodi_id => $is_active){
+                    $ins[] = [
+                        'prodi_id' => $prodi_id,
+                        'cpl_sndikti_id' => $cpl_sndikti_id,
+                        'cpl_prodi_id' => $cpl_prodi_id,
+                        'is_active' => 1
+                    ];
+                }
+            }
+
+            CplMatriksModel::upsert($ins, ['prodi_id','cpl_sndikti_id','cpl_prodi_id'], ['is_active']);
+        }
+    }
 }

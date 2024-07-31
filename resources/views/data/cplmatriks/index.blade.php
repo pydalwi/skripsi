@@ -17,8 +17,8 @@
                         @endif
                     </div> --}}
                 </div>
-                <form action="{{$page->url}}" enctype="multipart/form-data" method="post">
-                    @method('POST')
+                <form action="{{$page->url}}" method="post">
+                    @csrf
                 <div class="card-body">
                     @if(session('success'))
                         <div class="alert alert-success">
@@ -45,20 +45,13 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$cs->cpl_sndikti_kode}}</td>
                                         @foreach ($cpl_prodi as $cp)  
-                                            @foreach ($data as $cpm)
-                                                @if ($cpm->cpl_prodi_id == $cp->cpl_prodi_id && $cpm->cpl_sndikti_id == $cs->cpl_sndikti_id)
-                                                <td class="text-center">
-                                                    <input type="checkbox" name="cpm-{{$cpm->cpl_matriks_id}}" id="" {{$cpm->is_active == '1' ? 'checked' : ''}}>
-                                                </td>
-                                                 @php
-                                                     break;
-                                                 @endphp
-                                                @endif
-                                               
-                                            @endforeach
-                                         
-                                           
-                                            
+                                        <td>
+                                            @if(isset($matriks[$cs->cpl_sndikti_id][$cp->cpl_prodi_id]))
+                                                <input {{ ($matriks[$cs->cpl_sndikti_id][$cp->cpl_prodi_id] == 1)? 'checked' : '' }} type="checkbox" name="matriks[{{$cs->cpl_sndikti_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                            @else
+                                                <input type="checkbox" name="matriks[{{$cs->cpl_sndikti_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                            @endif
+                                        </td>
                                         @endforeach
                                     </tr>
                                 @endforeach

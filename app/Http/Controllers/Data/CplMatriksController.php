@@ -38,15 +38,22 @@ class CplMatriksController extends Controller
             'url' => $this->menuUrl,
             'title' => 'Daftar '. $this->menuTitle
         ];
-        $data = CplMatriksModel::all();
-        $cpl_prodi = CplProdiModel::all();
+        $data = CplMatriksModel::selectRaw('is_active, cpl_prodi_id, cpl_sndikti_id')->where('prodi_id', 1)->get();
+        $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
         $cpl_sndikti = CplSndiktiModel::all();
+
+        //trik kelola matrik
+        $matriks = [];
+        foreach($data as $d){
+            $matriks[$d->cpl_sndikti_id][$d->cpl_prodi_id] = $d->is_active;
+        }
+
        // CplMatriksModel::setDefaultCplMatriks();
         return view($this->viewPath . 'index')
             ->with('breadcrumb', (object) $breadcrumb) 
             ->with('activeMenu', (object) $activeMenu)
             ->with('page', (object) $page)
-            ->with('data',$data)
+            ->with('matriks',$matriks)
             ->with('cpl_prodi',$cpl_prodi)
             ->with('cpl_sndikti',$cpl_sndikti)
             ->with('allowAccess', $this->authAccessKey());
@@ -83,14 +90,10 @@ class CplMatriksController extends Controller
 
 
     public function store(Request $request){
-        $request->validate([
-            'cpl_kategori' => 'required',
-            'cpl_sndikti_id' => 'required|integer',
-            'cpl_prodi_id' => 'required|integer',
-            'is_active' => 'required|boolean',
-        ]);
-
-        CplMatriksModel::create($request->all());
+        
+        $matriks = $request->input('matriks');       
+        
+        CplMatriksModel::updateMatriks(1, $matriks);
         return redirect()->route('cplmatriks.index')->with('success', 'CplMatriks berhasil ditambahkan.');
 
     }
