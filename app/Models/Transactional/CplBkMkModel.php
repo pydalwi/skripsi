@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\AppModel;
 use App\Models\Master\CplProdiModel;
-use App\Models\Master\MkModel;
+use App\Models\Master\MatkulModel;
 use App\Models\Transactional\CplBkModel;
+use App\Models\Master\ProdiModel;
 
 class CplBkMkModel extends AppModel
 {
@@ -26,6 +27,7 @@ class CplBkMkModel extends AppModel
         'cpl_bk_id',
         'mk_id',
         'cpl_prodi_id',
+        'prodi_id',
         'created_at',
         'created_by',
         'updated_at',
@@ -38,7 +40,7 @@ class CplBkMkModel extends AppModel
         return $this->belongsTo(CplProdiModel::class);
     }
     public function MataKuliah(){
-        return $this->belongsTo(MkModel::class);
+        return $this->belongsTo(MatkulModel::class);
     }
     public function CplBk(){
         return $this->hasMany(CplBkModel::class);

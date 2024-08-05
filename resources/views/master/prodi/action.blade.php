@@ -21,15 +21,6 @@
                         <input type="text" class="form-control form-control-sm" id="nama_prodi" placeholder="Nama Prodi" name="nama_prodi" value="{{ isset($data->prodi_name) ? $data->nama_prodi : '' }}"/>
                     </div>
                 </div>
-            <div class="modal-body">
-                <div class="form-message text-center"></div>
-                <div class="form-group required row mb-2">
-                    <label class="col-sm-3 control-label col-form-label">Tahun Prodi</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" id="tahun_prodi" placeholder="Tahun Prodi" name="tahun_prodi" value="{{ isset($data->tahun_prodi) ? $data->tahun_prodi : '' }}"/>
-                    </div>
-                </div>
-            </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>

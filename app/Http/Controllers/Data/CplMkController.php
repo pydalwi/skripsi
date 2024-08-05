@@ -37,14 +37,22 @@ class CplMkController extends Controller
             'url' => $this->menuUrl,
             'title' => 'Daftar '. $this->menuTitle
         ];
-        $data = CplMkModel::all();
-        $cpl_prodi = CplProdiModel::all();
+        $data = CplMkModel::selectRaw('is_active, cpl_prodi_id, mk_id')->where('prodi_id', 1)->get();
+        $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
         $matkul = MatkulModel::all();
+
+        //trik kelola matrik
+        $cplmk = [];
+        foreach($data as $d){
+            $cplmk[$d->cpl_sndikti_id][$d->cpl_prodi_id] = $d->is_active;
+        }
+
+       // CplMatriksModel::setDefaultCplMatriks();
         return view($this->viewPath . 'index')
             ->with('breadcrumb', (object) $breadcrumb) 
             ->with('activeMenu', (object) $activeMenu)
             ->with('page', (object) $page)
-            ->with('data',$data)
+            ->with('cplmk',$cplmk)
             ->with('cpl_prodi',$cpl_prodi)
             ->with('matkul',$matkul)
             ->with('allowAccess', $this->authAccessKey());
@@ -81,14 +89,10 @@ class CplMkController extends Controller
 
 
     public function store(Request $request){
-        $request->validate([
-            'cpl_kategori' => 'required',
-            'mk_id' => 'required|integer',
-            'cpl_prodi_id' => 'required|integer',
-            'is_active' => 'required|boolean',
-        ]);
-
-        CplMkModel::create($request->all());
+        
+        $matriks = $request->input('matriks');       
+        
+        CplMkModel::updateMatriks(1, $matriks);
         return redirect()->route('cplmatriks.index')->with('success', 'CplMatriks berhasil ditambahkan.');
 
     }
@@ -120,7 +124,6 @@ class CplMkController extends Controller
          if ($request->ajax() || $request->wantsJson()) {
 
              $rules = [
-            'cpl_kategori' => 'required',
             'mk_id' => 'required|integer',
             'cpl_prodi_id' => 'required|integer',
             'is_active' => 'required|boolean',           ];
@@ -172,7 +175,6 @@ class CplMkController extends Controller
 
         return (!$data)? $this->showModalError() :
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
-                'cpl_kategori' => $data->cpl_kategori,
                 'mk_id' => $data->mk_id,
                 'cpl_prodi_id' => $data->cpl_prodi_id,  
             ]);

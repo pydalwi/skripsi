@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\AppModel;
+use App\Models\Master\ProdiModel;
 use App\Models\Master\CplProdiModel;
 use App\Models\Master\BahanKajianModel;
 use App\Models\Transactional\CplBkMkModel;
@@ -25,6 +26,7 @@ class CplBkModel extends AppModel
         'cpl_bk_id',
         'bk_id',
         'cpl_prodi_id',
+        'prodi_id',
         'created_at',
         'created_by',
         'updated_at',

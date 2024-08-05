@@ -29,7 +29,6 @@ class ProdiModel extends AppModel
     protected $fillable = [
         'prodi_id',
         'nama_prodi',
-        'tahun_prodi',
         'created_at',
         'created_by',
         'updated_at',
@@ -41,8 +40,8 @@ class ProdiModel extends AppModel
     public function Kurikulum(){
         return $this->hasMany(KurikulumModel::class);
     }
-    public function KurikulumMk(){
-        return $this->hasMany(KurikulumMkModel::class);
+    public function KurikulumMK(){
+        return $this->hasMany(KurikulumMKModel::class);
     }
     public function BahanKajian(){
         return $this->hasMany(BahanKajianModel::class);

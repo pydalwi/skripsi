@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Master\CplProdiModel;
 use App\Models\Master\CplSndiktiModel;
-
+use App\Models\Master\ProdiModel;
 class CplMatriksModel extends AppModel
 {
     use SoftDeletes;
@@ -25,7 +25,7 @@ class CplMatriksModel extends AppModel
         'cpl_sndikti_id',
         'cpl_prodi_id',
         'cpl_kategori',
-        'pl_id',
+        'prodi_id',
         'is_active',
         'created_at',
         'created_by',
@@ -48,7 +48,7 @@ class CplMatriksModel extends AppModel
 
 
     public static function setDefaultCplMatriks(){
-        $prodi = CplProdiModel::select('cpl_prodi_id','pl_id','cpl_prodi_kategori')->get();
+        $prodi = CplProdiModel::select('cpl_prodi_id','cpl_prodi_kategori')->get();
         
 
         $ins = [];

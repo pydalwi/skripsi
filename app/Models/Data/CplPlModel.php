@@ -24,6 +24,7 @@ class CplPlModel extends AppModel
         'cpl_pl_id',
         'cpl_prodi_id',
         'pl_id',
+        'prodi_id',
         'cpl_pl_check',
         'is_active',
         'created_at',
@@ -45,7 +46,7 @@ class CplPlModel extends AppModel
       
     ];
     public static function setDefaultCplPl(){
-        $prodi = CplProdiModel::select('cpl_prodi_id','pl_id','cpl_prodi_kategori')->get();
+        $prodi = CplProdiModel::select('cpl_prodi_id','cpl_prodi_kategori')->get();
         
 
         $ins = [];
@@ -68,5 +69,24 @@ class CplPlModel extends AppModel
         }
         return $prodi;
 
+    }
+    public static function updateCplpl($prodi_id, $cplpl){
+        self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
+
+        if(is_array($cplpl) && count($cplpl) > 0){
+            $ins = [];
+            foreach($cplpl as $cpl_prodi_id => $val){
+                foreach($val as $pl_id => $is_active){
+                    $ins[] = [
+                        'prodi_id' => $prodi_id,
+                        'cpl_prodi_id' => $cpl_prodi_id,
+                        'pl_id' => $pl_id,
+                        'is_active' => 1
+                    ];
+                }
+            }
+
+            CplPlModel::upsert($ins, ['prodi_id','pl_id','cpl_prodi_id'], ['is_active']);
+        }
     }
 }

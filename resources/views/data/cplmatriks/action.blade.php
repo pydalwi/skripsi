@@ -16,15 +16,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-message text-center"></div>
-            
-                <div class="form-group required row mb-2">
-                    <label for="group_name" class="col-sm-2 control-label col-form-label">CPL KATEGORI</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" id="cpl_kategori" name="cpl_kategori" value="{{ isset($data->cpl_kategori) ? $data->cpl_kategori : '' }}" />
-                        <small class="form-text text-muted">CPL KATEGORI</small>
-                    </div>
-                </div>
-                
+        
                 <div class="form-group required row mb-2">
                     <label for="group_code" class="col-sm-2 control-label col-form-label">CPL SNDIKTI</label>
                     <div class="col-sm-10">

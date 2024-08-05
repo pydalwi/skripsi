@@ -38,9 +38,17 @@ class CplPlController extends Controller
             'title' => 'Daftar '. $this->menuTitle
         ];
 
-        $data = CplPlModel::all();
-        $cpl_prodi = CplProdiModel::all();
-        $profil_lulusan = PLModel::join('m_prodi','m_profil_lulusan.prodi_id','=','m_prodi.prodi_id')->get();
+        $data = CplPlModel::selectRaw('is_active, cpl_prodi_id, pl_id')->where('prodi_id', 1)->get();
+        $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
+        $profil_lulusan = PLModel::all();
+
+        //trik kelola matrik
+        $cplpl = [];
+        foreach($data as $d){
+            $cplpl[$d->cpl_prodi_id][$d->pl_id] = $d->is_active;
+        }
+
+       // CplPlModel::setDefaultCplPl();
         return view($this->viewPath . 'index')
             ->with('breadcrumb', (object) $breadcrumb)
             ->with('activeMenu', (object) $activeMenu)
@@ -81,15 +89,11 @@ class CplPlController extends Controller
 
 
     public function store(Request $request){
-        $request->validate([
-            'd_cpl_pl_id' => 'required',
-            'cpl_prodi_id' => 'required|integer',
-            'pl_id' => 'required|integer',
-            'd_cpl_pl_check' => 'required',
-        ]);
 
-        CplPlModel::create($request->all());
-        return redirect()->route('cplpl.index')->with('success', 'CPL Profil Lulusan berhasil ditambahkan.');
+        $cplpl = $request->input('cplpl');       
+        
+        CplPlModel::updateCplpl(1, $cplpl);
+        return redirect()->route('cplpl.index')->with('success', 'Cpl Profil Lulusan berhasil ditambahkan.');
 
     }
 
@@ -118,24 +122,20 @@ class CplPlController extends Controller
          if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
          if ($request->ajax() || $request->wantsJson()) {
-
-             $rules = [
-                 'mk_kode' => ['required', 'string', 'unique:m_mk','max:10', CplPlModel::setUniqueInsertIgnore($id)],
-                 'mk_nama' => 'required|string|max:100',
-                 'mk_sks' => 'required|integer',
-             ];
-
-             $validator = Validator::make($request->all(), $rules);
-
-             if ($validator->fails()) {
-                 return response()->json([
-                     'stat'     => false,
-                     'mc'       => false,
-                     'msg'      => 'Terjadi kesalahan.',
-                     'msgField' => $validator->errors()
-                 ]);
-             }
-
+            $rules = [
+                'cpl_prodi_id' => 'required|integer',
+                'pl_id' => 'required|integer',
+                'is_active' => 'required|boolean',           ];
+                 $validator = Validator::make($request->all(), $rules);
+    
+                 if ($validator->fails()) {
+                     return response()->json([
+                         'stat'     => false,
+                         'mc'       => false,
+                         'msg'      => 'Terjadi kesalahan.',
+                         'msgField' => $validator->errors()
+                     ]);
+                 }
              $res =CplPlModel::updateData($id, $request);
 
              return response()->json([
@@ -173,9 +173,8 @@ class CplPlController extends Controller
 
         return (!$data)? $this->showModalError() :
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
-                'Kode Matkul' => $data->kode_mk,
-                'Nama Matkul' => $data->nama_mk,
-                'Jenis Matkul' =>  $data->jenis_mk,
+                'cpl_prodi_id' => $data->cpl_prodi_id,  
+                'pl_id' => $data->pl_id
             ]);
     }
 

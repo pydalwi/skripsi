@@ -4,7 +4,8 @@ namespace App\Models\Transactional;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Master\ProdiModel;
 class BobotpenilaianmkcplcpmkModel extends Model
 {
     use SoftDeletes;
@@ -21,6 +22,7 @@ class BobotpenilaianmkcplcpmkModel extends Model
         'cpl_prodi_id',
         'cpmk_id',
         'mk_id',
+        'prodi_id',
         'created_at',
         'created_by',
         'updated_at',

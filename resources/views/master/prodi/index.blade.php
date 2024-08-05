@@ -23,7 +23,6 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Prodi</th>
-                                    <th>Tahun Prodi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -59,13 +58,6 @@
                     },
                     {
                         "mData": "nama_prodi",
-                        "sClass": "",
-                        "sWidth": "57%",
-                        "bSortable": true,
-                        "bSearchable": true
-                    },
-                    {
-                        "mData": "tahun_prodi",
                         "sClass": "",
                         "sWidth": "57%",
                         "bSortable": true,

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\AppModel;
 use App\Models\Master\CplProdiModel;
 use App\Models\Data\CpmkModel;
+use App\Models\Master\ProdiModel;
 
 class CplCpmkModel extends AppModel
 {
@@ -24,6 +25,7 @@ class CplCpmkModel extends AppModel
         'cpl_cpmk_id',
         'cpl_prodi_id',
         'cpmk_id',
+        'prodi_id',
         'created_at',
         'created_by',
         'updated_at',
