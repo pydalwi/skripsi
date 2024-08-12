@@ -5,7 +5,7 @@
 
 <form method="post" action="{{ $page->url }}" role="form" class="form-horizontal" id="form-master">
     @csrf
-    {!! ($is_edit)? method_field('PUT') : method_field('POST') !!}
+    {!! ($is_edit)? method_field('PUT') : '' !!}
     <div id="modal-master" class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,18 +15,14 @@
             </div>
             <div class="modal-body">
                 <div class="form-message text-center"></div>
+                
                 <div class="form-group required row mb-2">
-                    <label class="col-sm-3 control-label col-form-label">Kode PL</label>
+                    <label class="col-sm-3 control-label col-form-label">Nama Dosen</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" id="kodeprofil_lulusan" placeholder="Kode PL" name="kodeprofil_lulusan" value="{{ isset($data->kodeprofil_lulusan) ? $data->kodeprofil_lulusan : '' }}"/>
+                        <input type="text" class="form-control form-control-sm" id="nama_dosen" name="nama_dosen" value="{{ isset($data->nama_dosen) ? $data->nama_dosen : '' }}"/>
                     </div>
                 </div>
-                <div class="form-group required row mb-2">
-                    <label class="col-sm-3 control-label col-form-label">Deskripsi PL</label>
-                    <div class="col-sm-9">
-                        <textarea rows="10" cols="30" type="text" class="form-control form-control-sm" id="deskripsi_pl" placeholder="Deskripsi PL" name="deskripsi_pl">{{ isset($data->deskripsi_pl) ? $data->deskripsi_pl : '' }}</textarea>
-                    </div>
-                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
@@ -42,12 +38,12 @@
 
         $("#form-master").validate({
             rules: {
-                kodeprofil_lulusan_id: {
-                    required: true
+                
+                nama_dosen: {
+                    required: true,
+                    maxlength: 50
                 },
-                deskripsi_pl: {
-                    required: true
-                },
+                
             },
             submitHandler: function (form) {
                 $('.form-message').html('');
@@ -73,5 +69,5 @@
             unhighlight: uhl,
             success: sc
         });
-    });
+        });
 </script>

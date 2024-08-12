@@ -28,7 +28,21 @@ use App\Http\Controllers\Transactional\RumusanakhircplController;
 use App\Http\Controllers\Setting\GroupController;
 use App\Http\Controllers\Setting\MenuController;
 use App\Http\Controllers\Setting\UserController;
+use App\Http\Controllers\Setting\PeriodeController;
+use App\Htto\Controllers\Dosen\DosenController;
 use Illuminate\Support\Facades\Route;
+
+//Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
+//
+//   // Kelola Dosen
+//   Route::resource('kelola_dosen', DosenController::class)->parameter('kelola_dosen', 'id');
+//   Route::post('kelola_dosen/list', [DosenController::class, 'list']);
+//   Route::get('kelola_dosen/{id}/delete', [DosenController::class, 'confirm']);
+//   Route::get('kelola_dosen/show', [DosenController::class, 'show'])->name('show-data');
+//   Route::get('kelola_dosen/menu_save', [DosenController::class, 'menu_save']);
+//
+//
+//});
 
 // Data Master
 Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
@@ -148,6 +162,17 @@ Route::group(['prefix' => 'setting', 'middleware' => ['auth']], function() {
      Route::resource('menu', MenuController::class)->parameter('menu', 'id');
      Route::post('menu/list', [MenuController::class, 'list']);
      Route::get('menu/{id}/delete', [MenuController::class, 'confirm']);
+
+      // User
+    Route::get('periode', [PeriodeController::class, 'index']);
+    Route::resource('periode', PeriodeController::class)->parameter('periode', 'id');
+    Route::post('periode/list', [PeriodeController::class, 'list']);
+    Route::post('periode/updateperiode', [PeriodeController::class, 'updateperiode'])->name('periode.update'); // Tambahkan ini
+    Route::get('periode/{id}/delete', [PeriodeController::class, 'confirm']);
+
+    Route::get('periode/{id}/edits', [PeriodeController::class, 'edits'])->name('edits');
+    Route::match(['post', 'put'], 'periode/{id}/updates', [PeriodeController::class, 'updates'])->name('updates');
+    Route::match(['post', 'put'], 'periode/{id}/get-mata-kuliah-by-kurikulum', [PeriodeController::class, 'getMataKuliahByKurikulum'])->name('get-mata-kuliah-by-kurikulum');
 });
 
 //transaksi
@@ -174,30 +199,7 @@ Route::group(['prefix' => 'setting', 'middleware' => ['auth']], function() {
     //Route::post('cplbkmk/list', [CplBkMKController::class, 'list']);
     //Route::get('cplbkmk/{id}/delete', [CplBkMKController::class, 'confirm']);
     
-    // Tahap Mekanisme Penilaian
-    Route::resource('mekanispenilaian', TahapMekanismePenilaianController::class);
-    //Route::post('mekanispenilaian/list', [TahapMekanismePenilaianController::class, 'list']);
-    //Route::get('mekanispenilaian/{id}/delete', [TahapMekanismePenilaianController::class, 'confirm']);
-
-    // Bobot Penilaian CPL MK CPMK
-    Route::resource('bobotpenilaicpl', BobotpenilaiancplmkcpmkController::class);
-    //Route::post('bobotpenilaicpl/list', [BobotpenilaiancplmkcpmkController::class, 'list']);
-    //Route::get('bobotpenilaicpl/{id}/delete', [BobotpenilaiancplmkcpmkController::class, 'confirm']);
-
-    // Bobot Penilaian  MK CPL CPMK
-    Route::resource('bobotpenilaimk', BobotpenilaianmkcplcpmkController::class);
-    //Route::post('bobotpenilaimk/list', [BobotpenilaianmkcplcpmkController::class, 'list']);
-    //Route::get('bobotpenilaimk/{id}/delete', [BobotpenilaianmkcplcpmkController::class, 'confirm']);
-  
-    // Rumusan Akhir MK
-    Route::resource('rumusanakhirmk', RumusanakhirmkController::class);
-   // Route::post('rumusanakhirmk/list', [RumusanakhirmkController::class, 'list']);
-   // Route::get('rumusanakhirmk/{id}/delete', [RumusanakhirmkController::class, 'confirm']);
-  
-    // Rumusan Akhir CPL
-    Route::resource('rumusanakhircpl', RumusanakhircplController::class);
-  //  Route::post('rumusanakhircpl/list', [RumusanakhircplController::class, 'list']);
-  //  Route::get('rumusanakhircpl/{id}/delete', [RumusanakhircplController::class, 'confirm']);
+ 
 });
   
   

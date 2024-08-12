@@ -17,7 +17,6 @@ class DCplMk extends Migration
             $table->id('cpl_mk_id');
             $table->boolean('is_active')->default(false);
             $table->tinyInteger('cpl_mk_check')->default(0);
-            $table->string('mk_nama');
             $table->unsignedBigInteger('cpl_prodi_id')->nullable()->index();
             $table->unsignedBigInteger('mk_id')->nullable()->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
@@ -28,6 +27,9 @@ class DCplMk extends Migration
             $table->integer('deleted_by')->nullable()->index();
             $table->index(name:'fk_cpl_mk1_idx',columns:'cpl_prodi_id');
             $table->index(name:'fk_cpl_mk2_idx',columns:'mk_id');
+            $table->unsignedBigInteger('prodi_id')->index();
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
+
             $table->foreign(columns:'cpl_prodi_id',name:'fk_cpl_mk1')->references('cpl_prodi_id')->on('m_cpl_prodi')
             ->noActionOnDelete()
             ->noActionOnUpdate();

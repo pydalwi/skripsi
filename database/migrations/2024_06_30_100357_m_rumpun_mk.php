@@ -32,6 +32,8 @@ class MRumpunMk extends Migration
             $table->integer('updated_by')->nullable()->index();
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
+            $table->unsignedBigInteger('prodi_id')->index();
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
             $table->index(name:'fk_rumpun_mk1_idx',columns:'dosen_id');
             $table->index(name:'fk_rumpun_mk2_idx',columns:'kurikulum_id');
             $table->foreign(columns:'dosen_id',name:'fk_rumpun_mk1')->references('dosen_id')->on('d_dosen')->noActionOnDelete()->noActionOnUpdate();

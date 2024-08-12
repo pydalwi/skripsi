@@ -25,6 +25,8 @@ class tmkbk extends Migration
             $table->integer('updated_by')->nullable()->index();
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
+            $table->unsignedBigInteger('prodi_id')->index();
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
             $table->index(name:'fk_mk_bk1_idx',columns:'mk_id');
             $table->index(name:'fk_mk_bk2_idx',columns:'bk_id');
             $table->foreign(columns:'mk_id',name:'fk_mk_bk1')->references('mk_id')->on('m_mk')->noActionOnDelete()->noActionOnUpdate();

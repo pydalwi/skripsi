@@ -28,6 +28,8 @@ class MMk extends Migration
             $table->integer('updated_by')->nullable()->index();
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
+            $table->unsignedBigInteger('prodi_id')->index();
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
             //Kurikulum
         });
     }

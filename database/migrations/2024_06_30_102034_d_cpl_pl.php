@@ -25,6 +25,7 @@ class DCplPl extends Migration
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
             $table->unsignedBigInteger('pl_id')->index();
+            $table->unsignedBigInteger('prodi_id')->index();
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->index(
                 name:'fk_cpl_pl1_idx',
@@ -42,7 +43,7 @@ class DCplPl extends Migration
             ->references('cpl_prodi_id')->on('m_cpl_prodi')
             ->noActionOnDelete()
             ->noActionOnUpdate();
-
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
         });
     }
 

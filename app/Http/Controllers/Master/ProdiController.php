@@ -47,7 +47,7 @@ class ProdiController extends Controller
         $this->authAction('read', 'json');
         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data  = ProdiModel::all();
+        $data  = ProdiModel::selectRaw('prodi_id', 'nama_prodi');
 
         return Datatables::of($data)
             ->addIndexColumn()
@@ -77,7 +77,7 @@ class ProdiController extends Controller
 
             $rules = [
                 'nama_prodi' => 'required|string',
-                'tahun_prodi' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2)
+             //   'tahun_prodi' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2)
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -131,7 +131,7 @@ class ProdiController extends Controller
 
             $rules = [
                 'nama_prodi' => 'required|string',
-                'tahun_prodi' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2)
+            //    'tahun_prodi' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2)
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -184,7 +184,7 @@ class ProdiController extends Controller
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
                 
                 'Nama Prodi' => $data->prodi_name,
-                'Tahun Prodi'=> $data->tahun_prodi,
+           //     'Tahun Prodi'=> $data->tahun_prodi,
             ]);
     }
 

@@ -20,6 +20,7 @@ class DCplMatriks extends Migration
             $table->tinyInteger('cpl_matriks_check')->default(0);
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->unsignedBigInteger('cpl_sndikti_id')->index();
+            $table->unsignedBigInteger('prodi_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();
             $table->dateTime('updated_at')->nullable();
@@ -34,7 +35,7 @@ class DCplMatriks extends Migration
             $table->foreign(columns:'cpl_sndikti_id',name:'fk_cpl_matriks2')->references('cpl_sndikti_id')->on('m_cpl_sndikti')
             ->noActionOnDelete()
             ->noActionOnUpdate();
-
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
         });
     }
 

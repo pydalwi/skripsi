@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Master\JurusanModel;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 

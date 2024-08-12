@@ -40,9 +40,7 @@ class ProdiModel extends AppModel
     public function Kurikulum(){
         return $this->hasMany(KurikulumModel::class);
     }
-    public function KurikulumMK(){
-        return $this->hasMany(KurikulumMKModel::class);
-    }
+    
     public function BahanKajian(){
         return $this->hasMany(BahanKajianModel::class);
     }

@@ -80,7 +80,7 @@ class KurikulumController extends Controller
 
             $rules = [
                 'kurikulum_tahun' => 'required',
-                'kurikulum_nama' => 'required',
+             
                 'prodi_id' => 'required'
             ];
 
@@ -137,7 +137,7 @@ class KurikulumController extends Controller
 
             $rules = [
                 'kurikulum_tahun' => 'required',
-                'kurikulum_nama' => 'required',
+        
                 'prodi_id'  => 'required'
             ];
 

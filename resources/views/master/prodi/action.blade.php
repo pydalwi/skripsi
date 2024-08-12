@@ -1,4 +1,4 @@
-<?php
+ <?php
     // jika $data ada ISI-nya maka actionnya adalah edit, jika KOSONG : insert
     $is_edit = isset($data);
 ?>
@@ -64,4 +64,4 @@
             success: sc
         });
     });
-</script>
+</script>   

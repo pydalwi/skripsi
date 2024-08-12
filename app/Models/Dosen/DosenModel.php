@@ -79,7 +79,7 @@ class DosenModel extends AppModel
                 self::updateOrInsert(
                         ['group_id' => $menu_id],
                         [
-                            'group_id' => isset($act['group_id'])? 2 : 4,
+                            'group_id' => isset($act['group_id'])? 3 : 4,
                         ]
                     );
             }

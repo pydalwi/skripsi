@@ -25,6 +25,8 @@ class TCplBkMk extends Migration
             $table->integer('updated_by')->nullable()->index();
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
+            $table->unsignedBigInteger('prodi_id')->index();
+            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
             $table->index(name:'fk_tcpl_bk_mk1_idx',columns:'cpl_prodi_id');
             $table->index(name:'fk_tcpl_bk_mk2_idx',columns:'mk_id');
             $table->index(name:'fk_tcpl_bk_mk3_idx',columns:'cpl_bk_id');
