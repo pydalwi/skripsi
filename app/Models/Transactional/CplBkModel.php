@@ -27,6 +27,7 @@ class CplBkModel extends AppModel
         'bk_id',
         'cpl_prodi_id',
         'prodi_id',
+        'is_active',
         'created_at',
         'created_by',
         'updated_at',
@@ -50,20 +51,20 @@ class CplBkModel extends AppModel
       
     ];
 
-    public static function setDefaultCplBk(){
-        $prodi = CplProdiModel::select('cpl_prodi_id','pl_id','cpl_prodi_kategori')->get();
+    public static function setDefaultCplBkMatriks(){
+        $prodi = CplProdiModel::select('cpl_prodi_id','cpl_prodi_kategori')->get();
         
 
         $ins = [];
         foreach($prodi as $p){
-            $bahan_kajian = BahanKajianModel::select('bk_id')
-                        ->where('pl_id', $p->pl_id)->get();
+            $bahankajian = BahanKajianModel::select('bk_id')
+                        ->where('bk_id', $p->bk_id)->get();
             
-            foreach($bahan_kajian as $bk){
+            foreach($bahankajian as $bk){
                 $ins[] = [
                     'bk_id' => $bk->bk_id,
                     'cpl_prodi_id' => $p->cpl_prodi_id,
-                  
+                    'cpl_kategori' => $p->cpl_prodi_kategori,
                     'is_active' => 0,
                 ];
             }
@@ -74,5 +75,27 @@ class CplBkModel extends AppModel
         }
         return $prodi;
 
+    }
+
+
+
+    public static function updateCplBkMatriks($prodi_id, $cplbkmatriks){
+        self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
+
+        if(is_array($cplbkmatriks) && count($cplbkmatriks) > 0){
+            $ins = [];
+            foreach($cplbkmatriks as $bk_id => $val){
+                foreach($val as $cpl_prodi_id => $is_active){
+                    $ins[] = [
+                        'prodi_id' => $prodi_id,
+                        'bk_id' => $bk_id,
+                        'cpl_prodi_id' => $cpl_prodi_id,
+                        'is_active' => 1
+                    ];
+                }
+            }
+
+            CplBkModel::upsert($ins, ['prodi_id','bk_id','cpl_prodi_id'], ['is_active']);
+        }
     }
 }

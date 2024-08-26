@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use App\Models\Data\KurikulumModel;
 use App\Models\Master\MatkulModel;
+use App\Models\Master\ProdiModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -65,8 +66,8 @@ class MatkulController extends Controller
             'url' => $this->menuUrl,
             'title' => 'Tambah ' . $this->menuTitle
         ];
-
-        return view($this->viewPath . 'action')
+        $prodi = ProdiModel::all();
+        return view($this->viewPath . 'action', compact(['prodi']))
 
             ->with('page', (object) $page);
     }
@@ -83,7 +84,8 @@ class MatkulController extends Controller
             'sks'   =>  'required',
             'semester' => 'required',
             'mk_jenis' => 'required',
-            'mk_kategori' => 'required'
+            'mk_kategori' => 'required',
+            'prodi_id' => 'required'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -118,10 +120,10 @@ class MatkulController extends Controller
         ];
 
         $data = MatkulModel::find($id);
-
+        $prodi = ProdiModel::all();
 
         return (!$data)? $this->showModalError() :
-            view($this->viewPath . 'action')
+            view($this->viewPath . 'action',compact(['prodi']))
                 ->with('page', (object) $page)
                 ->with('id', $id)
                 ->with('data', $data);
@@ -140,7 +142,8 @@ class MatkulController extends Controller
                  'sks'   =>  'required',
                  'semester' => 'required',
                  'mk_jenis' => 'required',
-                 'mk_kategori' => 'required'
+                 'mk_kategori' => 'required',
+                 'prodi_id' => 'required'
              ];
 
              $validator = Validator::make($request->all(), $rules);
@@ -196,6 +199,7 @@ class MatkulController extends Controller
                 'sks'          => $data->sks,
                 'semester' => $data->semester,
                 'mk_jenis' =>  $data->mk_jenis,
+                'prodi_id' => $data->prodi_id
             ]);
     }
 

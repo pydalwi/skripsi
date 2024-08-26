@@ -17,6 +17,7 @@ class tmkbk extends Migration
         Schema::create('t_mk_bk', function (Blueprint $table) {
             $table->id('mk_bk_id');
             $table->boolean('is_active')->default(false);
+            $table->tinyInteger('cpl_matriks_check')->default(0);
             $table->unsignedBigInteger('mk_id')->index();
             $table->unsignedBigInteger('bk_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();

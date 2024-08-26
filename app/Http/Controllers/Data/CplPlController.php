@@ -55,7 +55,7 @@ class CplPlController extends Controller
             ->with('page', (object) $page)
             ->with('data',$data)
             ->with('cpl_prodi',$cpl_prodi)
-            ->with('pl',$profil_lulusan)
+            ->with('profil_lulusan',$profil_lulusan)
             ->with('allowAccess', $this->authAccessKey());
     }
 

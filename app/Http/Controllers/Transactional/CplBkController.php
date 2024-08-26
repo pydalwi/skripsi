@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Transactional;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Transactional\CplBkMkModel;
+use App\Models\Transactional\CplBkModel;
+use App\Models\Master\CplProdiModel;
+use App\Models\Master\BahanKajianModel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 class CplBkController extends Controller
@@ -36,10 +38,21 @@ class CplBkController extends Controller
             'title' => 'Daftar '. $this->menuTitle
         ];
 
+        $data = CplBkModel::selectRaw('is_active, cpl_prodi_id, bk_id')->where('prodi_id', 1)->get();
+        $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
+        $bahan_kajian = BahanKajianModel::all();
+
+        $cplbk = [];
+        foreach($data as $d){
+            $cplbk[$d->bk_id][$d->cpl_prodi_id] = $d->is_active;
+        }
         return view($this->viewPath . 'index')
             ->with('breadcrumb', (object) $breadcrumb)
             ->with('activeMenu', (object) $activeMenu)
             ->with('page', (object) $page)
+            ->with('cplbk',$cplbk)
+            ->with('cpl_prodi',$cpl_prodi)
+            ->with('bahan_kajian',$bahan_kajian)
             ->with('allowAccess', $this->authAccessKey());
     }
 
@@ -82,37 +95,42 @@ class CplBkController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'cpl' => 'required',
-            'mk' => 'required',
-            'cpmk' => 'required',
-            'tahap_penilaian' => 'required',
-            'teknik_penilaian' => 'required',
-            'instrumen' => 'required',
-            'kriteria' => 'required',
-            'bobot' => 'required|integer|min:0|max:100'
-        ]);
-
-        $total_bobot = TahapMekanismePenilaian::sum('bobot') + $request->bobot;
-
-        if ($total_bobot > 100) {
-            return back()->withErrors(['bobot' => 'Total bobot tidak boleh lebih dari 100%']);
-        }
-
-        TahapMekanismePenilaian::create($request->all());
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil ditambahkan.');
+        $cplbk = $request->input('cplbk');       
+        
+        CplBkModel::updateCplBk(1, $cplbk);
+        return redirect()->route('cplbk.index')->with('success', 'CplBk berhasil ditambahkan.');
    
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function confirm($id){
+        $this->authAction('delete', 'modal');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = CplBkModel::find($id);
+
+        return (!$data)? $this->showModalError() :
+            $this->showModalConfirm($this->menuUrl.'/'.$id, [
+                'bk_id' => $data->bk_id,
+                'cpl_prodi_id' => $data->cpl_prodi_id,  
+            ]);
+    }
+
+
     public function show($id)
     {
-        //
+        $this->authAction('read', 'modal');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = CplBkModel::find($id);
+        $page = [
+            'title' => 'Detail ' . $this->menuTitle
+        ];
+
+        return (!$data)? $this->showModalError() :
+            view($this->viewPath . 'detail')
+                ->with('page', (object) $page)
+                ->with('id', $id)
+                ->with('data', $data);
     }
 
     /**
@@ -123,8 +141,8 @@ class CplBkController extends Controller
      */
     public function edit($id)
     {
-        $data = TahapMekanismePenilaian::find($id);
-        return view('tahap_mekanisme_penilaian.edit', compact('data'));
+  //      $data = TahapMekanismePenilaian::find($id);
+  //      return view('tahap_mekanisme_penilaian.edit', compact('data'));
     }
 
     /**
@@ -136,26 +154,36 @@ class CplBkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'cpl' => 'required',
-            'mk' => 'required',
-            'cpmk' => 'required',
-            'tahap_penilaian' => 'required',
-            'teknik_penilaian' => 'required',
-            'instrumen' => 'required',
-            'kriteria' => 'required',
-            'bobot' => 'required|integer|min:0|max:100'
-        ]);
+        $this->authAction('update', 'json');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data = TahapMekanismePenilaian::find($id);
-        $total_bobot = TahapMekanismePenilaian::where('id', '!=', $id)->sum('bobot') + $request->bobot;
+        if ($request->ajax() || $request->wantsJson()) {
 
-        if ($total_bobot > 100) {
-            return back()->withErrors(['bobot' => 'Total bobot tidak boleh lebih dari 100%']);
+            $rules = [
+           'bk_id' => 'required|integer',
+           'cpl_prodi_id' => 'required|integer',
+           'is_active' => 'required|boolean',           ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'stat'     => false,
+                    'mc'       => false,
+                    'msg'      => 'Terjadi kesalahan.',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $res = CplBkModel::updateData($id, $request);
+
+            return response()->json([
+                'stat' => $res,
+                'mc' => $res, // close modal
+                'msg' => ($res)? $this->getMessage('update.success') : $this->getMessage('update.failed')
+            ]);
         }
 
-        $data->update($request->all());
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect('/');
 
     }
 
@@ -165,9 +193,21 @@ class CplBkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        TahapMekanismePenilaian::destroy($id);
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil dihapus.');
+    public function destroy($id){
+    $this->authAction('delete', 'json');
+    if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+    if ($request->ajax() || $request->wantsJson()) {
+      
+       $res = CplBkModel::deleteData($id);
+       
+        return response()->json([
+           'stat' => $res,
+           'mc' => $res, // close modal
+           'msg' => CplBkModel::getDeleteMessage()
+        ]);
     }
+
+    return redirect('/');
+}
 }

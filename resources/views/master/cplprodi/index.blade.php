@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode CPL</th>
+                                    <th>Kode</th>
                                     <th>Kategori</th>
                                     <th>Deskripsi</th>
                                     <th>Aksi</th>

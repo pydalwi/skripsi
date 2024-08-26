@@ -35,7 +35,7 @@
                                 </tr>
                                 <tr>
                                     @foreach ($profil_lulusan as $pl)
-                                        <th>{{$cp->kode_pl}}</th> 
+                                        <th>{{$pl->kode_pl}}</th> 
                                     @endforeach
                                 </tr>
                             </thead>

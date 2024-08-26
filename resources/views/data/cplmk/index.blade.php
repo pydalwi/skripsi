@@ -5,7 +5,6 @@
     <div class="row">
         <div class="col-md-12">
             
-        
             <div class="card">
                 <div class="card-header">
                         <h3 class="card-title mt-1">
@@ -18,8 +17,8 @@
                         @endif
                     </div> --}}
                 </div>
-                <form action="{{$page->url}}" enctype="multipart/form-data" method="post">
-                    @method('POST')
+                <form action="{{$page->url}}" method="post">
+                    @csrf
                 <div class="card-body">
                     @if(session('success'))
                         <div class="alert alert-success">
@@ -30,10 +29,13 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Kode MK</th>
+                                    <th rowspan="2">No</th>
+                                    <th rowspan="2">Mata Kuliah</th>
+                                    <th colspan="100%" class="text-center"> CPL - PRODI</th>
+                                </tr>
+                                <tr>
                                     @foreach ($cpl_prodi as $cp)
-                                        <th>{{$cp->cpl_prodi_kode}}</th>
+                                        <th>{{$cp->cpl_prodi_kode}}</th> 
                                     @endforeach
                                 </tr>
                             </thead>
@@ -42,25 +44,22 @@
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$mk->mk_kode}}</td>
-                                        @foreach ($cpl_prodi as $cp)
-                                            @foreach ($data as $cpm)
-                                                @php
-                                                    $check = $cpm->cpl_prodi_id == $cp->cpl_prodi_id && $cpm->mk_id == $mk->mk_id
-                                                @endphp
-                                                <td class="text-center">
-                                                    <input type="checkbox" name="cpm-{{$cpm->cpl_mk_id}}" id="" {{$check && $cpm->is_active == '1' ? 'checked' : ''}}>
-                                                </td>
-                                                @php
-                                                    break;
-                                                @endphp
-                                            @endforeach
-                                            
+                                        @foreach ($cpl_prodi as $cp)  
+                                        <td>
+                                            @if(isset($cplmk[$mk->mk_id][$cp->cpl_prodi_id]))
+                                                <input {{ ($cplmk[$mk->mk_id][$cp->cpl_prodi_id] == 1)? 'checked' : '' }} type="checkbox" name="cplmk[{{$mk->mk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                            @else
+                                                <input type="checkbox" name="matriks[{{$mk->mk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                            @endif
+                                        </td>
                                         @endforeach
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </div>
+                   
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Simpan</button>
@@ -72,5 +71,6 @@
     </div>
 </div>
 @endsection
+
 
  

@@ -22,19 +22,18 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th rowspan="2">CPL</th>
-                                    <th rowspan="2">Semester</th>
-                                    <th colspan="100%" class="text-center"> Struktur CPL - MK</th>
+                                    <th>Semester</th>
                                     <th>SKS</th>
                                     <th>Jumlah MK</th>
                                     <th>MK WAJIB</th>
-                                    <th>MK PILIHAN</th>
-                                    <th>MKWK</th>   
+                                    <th>MK PILIHAN 1</th>
+                                    <th>MK PILIHAN 2</th>   
+                                    <th>MK PILIHAN 3</th>   
                                 </tr>
                             </thead>
                             <tbody>
                                 @php
-                                    $total_cpl = 0;
+                                    $total_sks = 0;
                                     $total_mk = 0;
                                 @endphp
                                 @for ($i = 1; $i <= 8; $i++)
@@ -57,10 +56,13 @@
                                                    array_push($ray_wajib,$item->mk_kode);
                                                     break;
                                                 case '1':
-                                                array_push($ray_pilihan,$item->mk_kode);
+                                                array_push($ray_pilihan1,$item->mk_kode);
                                                     break;
                                                 case '2':
-                                                array_push($ray_wk,$item->mk_kode);
+                                                array_push($ray_pilihan2,$item->mk_kode);
+                                                    break;
+                                                case '3':
+                                                array_push($ray_pilihan3,$item->mk_kode);
                                                     break;
                                             }
                                         }
@@ -72,9 +74,11 @@
                                         <td>{{$sks}}</td>
                                         <td>{{$jumlah_mk}}</td>
                                         <td>{{ count($ray_wajib) > 0 ? implode(",",$ray_wajib) : '-'}}</td>
-                                        <td>{{count($ray_pilihan) > 0 ? implode(",",$ray_pilihan) : '-'}}</td>
-                                        <td>{{count($ray_wk) > 0 ? implode(",",$ray_wk) : '-'}}</td>
-                                        
+                                        <td>{{count($ray_pilihan1) > 0 ? implode(",",$ray_pilihan1) : '-'}}</td>
+                                        <td>{{count($ray_pilihan2) > 0 ? implode(",",$ray_pilihan2) : '-'}}</td>
+                                        <td>{{count($ray_pilihan3) > 0 ? implode(",",$ray_pilihan3) : '-'}}</td>
+                                      {{--  <td>{{count($ray_wk) > 0 ? implode(",",$ray_wk) : '-'}}</td>
+                                        --}}
                                     </tr>
 
                                 @endfor

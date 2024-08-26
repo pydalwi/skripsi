@@ -27,7 +27,7 @@
                 <div class="form-group required row mb-2">
                     <label class="col-sm-3 control-label col-form-label">Tahun Kaprodi</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" id="kaprodi_tahun" placeholder="Tahun Kaprodi" name="kaprodi_tahun" value="{{ isset($data->kaprodi_tahun) ? $data->kaprodi_tahun : '' }}"/>
+                        <input type="text" class="form-control form-control-sm" id="tahun" placeholder="Tahun Kaprodi" name="tahun" value="{{ isset($data->tahun) ? $data->tahun : '' }}"/>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                    <select name="prodi_id" id="prodi_id" class="form-control form-control-sm" required>
                         <option value="">-- Pilih Prodi --</option>
                         @foreach ($prodi as $item)
-                            <option value="<?= $item->prodi_id ?>" {{ isset($data->prodi_id) && $data->prodi_id == $item->prodi_id ? 'selected' : '' }} >{{$item->nama_prodi}} ({{$item->tahun_prodi}})</option>
+                            <option value="<?= $item->prodi_id ?>" {{ isset($data->prodi_id) && $data->prodi_id == $item->prodi_id ? 'selected' : '' }} >{{$item->nama_prodi}} </option>
                         @endforeach
                    </select>
                 </div>
@@ -62,7 +62,7 @@
                 kaprodi_nama: {
                     required: true
                 },
-                kaprodi_tahun: {
+                tahun: {
                     required: true
                 },
                 kaprodi_id: {

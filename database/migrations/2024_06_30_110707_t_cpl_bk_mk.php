@@ -19,6 +19,8 @@ class TCplBkMk extends Migration
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->unsignedBigInteger('mk_id')->index();
             $table->unsignedBigInteger('cpl_bk_id')->index();
+            $table->boolean('is_active')->default(false);
+            $table->tinyInteger('cpl_bk_mk_check')->default(0);
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->integer('created_by')->nullable()->index();
             $table->dateTime('updated_at')->nullable();

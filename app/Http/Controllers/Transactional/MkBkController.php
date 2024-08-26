@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Transactional;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transactional\MkBkModel;
+use App\Models\Master\MatkulModel;
+use App\Models\Master\BahanKajianModel;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 class MkBkController extends Controller
@@ -36,10 +38,24 @@ class MkBkController extends Controller
             'title' => 'Daftar '. $this->menuTitle
         ];
 
+        $data = MkBkModel::selectRaw('is_active, bk_id, mk_id')->where('bk_id', 1)->get();
+        $bahankajian = BahanKajianModel::where('bk_id', 1)->get();
+        $matkul = MatkulModel::all();
+
+        //trik kelola matrik
+        $mkbk = [];
+        foreach($data as $d){
+            $mkbk[$d->mk_id][$d->bk_id] = $d->is_active;
+        }
+
+       // CplMatriksModel::setDefaultCplMatriks();
         return view($this->viewPath . 'index')
-            ->with('breadcrumb', (object) $breadcrumb)
+            ->with('breadcrumb', (object) $breadcrumb) 
             ->with('activeMenu', (object) $activeMenu)
             ->with('page', (object) $page)
+            ->with('mkbk',$mkbk)
+            ->with('bahankajian',$bahankajian)
+            ->with('matkul',$matkul)
             ->with('allowAccess', $this->authAccessKey());
     }
 
@@ -82,26 +98,11 @@ class MkBkController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'cpl' => 'required',
-            'mk' => 'required',
-            'cpmk' => 'required',
-            'tahap_penilaian' => 'required',
-            'teknik_penilaian' => 'required',
-            'instrumen' => 'required',
-            'kriteria' => 'required',
-            'bobot' => 'required|integer|min:0|max:100'
-        ]);
-
-        $total_bobot = MkBk::sum('bobot') + $request->bobot;
-
-        if ($total_bobot > 100) {
-            return back()->withErrors(['bobot' => 'Total bobot tidak boleh lebih dari 100%']);
-        }
-
-        TahapMekanismePenilaian::create($request->all());
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil ditambahkan.');
-   
+        
+        $mkbk = $request->input('mkbk');       
+        
+        MkBkModel::updateMkBk(1, $mkbk);
+        return redirect()->route('mkbk.index')->with('success', 'MkBk berhasil ditambahkan.');
     }
 
     /**
@@ -112,7 +113,19 @@ class MkBkController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->authAction('read', 'modal');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $data = MkBkModel::find($id);
+        $page = [
+            'title' => 'Detail ' . $this->menuTitle
+        ];
+
+        return (!$data)? $this->showModalError() :
+            view($this->viewPath . 'detail')
+                ->with('page', (object) $page)
+                ->with('id', $id)
+                ->with('data', $data);
     }
 
     /**
@@ -123,8 +136,22 @@ class MkBkController extends Controller
      */
     public function edit($id)
     {
-        $data = TahapMekanismePenilaian::find($id);
-        return view('tahap_mekanisme_penilaian.edit', compact('data'));
+        $this->authAction('update', 'modal');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        $page = [
+            'url' => $this->menuUrl . '/'.$id,
+            'title' => 'Edit ' . $this->menuTitle
+        ];
+
+        $data = MkBkModel::find($id);
+     
+
+        return (!$data)? $this->showModalError() :
+            view($this->viewPath . 'action')
+                ->with('page', (object) $page)
+                ->with('id', $id)
+                ->with('data', $data);
     }
 
     /**
@@ -136,27 +163,37 @@ class MkBkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'cpl' => 'required',
-            'mk' => 'required',
-            'cpmk' => 'required',
-            'tahap_penilaian' => 'required',
-            'teknik_penilaian' => 'required',
-            'instrumen' => 'required',
-            'kriteria' => 'required',
-            'bobot' => 'required|integer|min:0|max:100'
-        ]);
+        $this->authAction('update', 'json');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data = TahapMekanismePenilaian::find($id);
-        $total_bobot = TahapMekanismePenilaian::where('id', '!=', $id)->sum('bobot') + $request->bobot;
+        if ($request->ajax() || $request->wantsJson()) {
 
-        if ($total_bobot > 100) {
-            return back()->withErrors(['bobot' => 'Total bobot tidak boleh lebih dari 100%']);
+            $rules = [
+           
+           'mk_id' => 'required|integer',
+           'bk_id' => 'required|integer',
+           'is_active' => 'required|boolean',           ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'stat'     => false,
+                    'mc'       => false,
+                    'msg'      => 'Terjadi kesalahan.',
+                    'msgField' => $validator->errors()
+                ]);
+            }
+
+            $res = CplMatriksModel::updateData($id, $request);
+
+            return response()->json([
+                'stat' => $res,
+                'mc' => $res, // close modal
+                'msg' => ($res)? $this->getMessage('update.success') : $this->getMessage('update.failed')
+            ]);
         }
 
-        $data->update($request->all());
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil diperbarui.');
-
+        return redirect('/');
     }
 
     /**
@@ -167,7 +204,20 @@ class MkBkController extends Controller
      */
     public function destroy($id)
     {
-        TahapMekanismePenilaian::destroy($id);
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil dihapus.');
-    }
+        $this->authAction('delete', 'json');
+        if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+
+        if ($request->ajax() || $request->wantsJson()) {
+          
+           $res = MkBkModel::deleteData($id);
+           
+            return response()->json([
+               'stat' => $res,
+               'mc' => $res, // close modal
+               'msg' => MkBkModel::getDeleteMessage()
+            ]);
+        }
+
+        return redirect('/');
+   }    
 }

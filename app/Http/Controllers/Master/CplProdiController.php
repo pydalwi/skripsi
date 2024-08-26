@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Master\CplProdiModel;
-use App\Models\Master\PLModel;
+use App\Models\Master\ProdiModel;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 class CplProdiController extends Controller
@@ -49,7 +49,6 @@ class CplProdiController extends Controller
         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
         $data  = CplProdiModel::all();
-        $profil_lulusan = PLModel::all();
         return DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
@@ -63,9 +62,8 @@ class CplProdiController extends Controller
             'url' => $this->menuUrl,
             'title' => 'Tambah ' . $this->menuTitle
         ];
-        $cplprodi = CplProdiModel::all();
-        $profil_lulusan = PLModel::join('m_prodi','m_profil_lulusan.prodi_id','=','m_prodi.prodi_id')->get();
-        return view($this->viewPath . 'action', compact(['profil_lulusan']))
+        $prodi = ProdiModel::all();
+        return view($this->viewPath . 'action', compact(['prodi']))
             ->with('page', (object) $page);
     }
 
@@ -80,7 +78,7 @@ class CplProdiController extends Controller
                 'cpl_prodi_kode' => 'required',
                 'cpl_prodi_deskripsi' => 'required',
                 'cpl_prodi_kategori' => 'required',
-                'pl_id' => 'required',
+                'prodi_id' => 'required',
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -117,9 +115,9 @@ class CplProdiController extends Controller
         ];
 
         $data = CplProdiModel::find($id);
-        $profil_lulusan = PLModel::join('m_prodi','m_profil_lulusan.prodi_id','=','m_prodi.prodi_id')->get();
+        $prodi = ProdiModel::all();
         return (!$data)? $this->showModalError() :
-            view($this->viewPath . 'action', compact(['profil_lulusan']))
+            view($this->viewPath . 'action', compact(['prodi']))
                 ->with('page', (object) $page)
                 ->with('id', $id)
                 ->with('data', $data);
@@ -136,7 +134,7 @@ class CplProdiController extends Controller
                 'cpl_prodi_kode' => 'required',
                 'cpl_prodi_deskripsi' => 'required',
                 'cpl_prodi_kategori' => 'required',
-                'pl_id' => 'required'
+                'prodi_id' => 'required'
              ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -190,7 +188,7 @@ class CplProdiController extends Controller
                 'cpl_Prodi_kode' => $data->cpl_prodi_kode,
                 'cpl_Prodi_deskripsi' => $data->cpl_prodi_deskripsi,
                 'cpl_Prodi_kategori' => $data->cpl_prodi_kategori,
-                'pl_id' => $data->pl_id
+                'prodi_id' => $data->prodi_id
             ]);
     }
 

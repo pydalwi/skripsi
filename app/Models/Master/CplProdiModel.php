@@ -28,7 +28,6 @@ class CplProdiModel extends AppModel
         'cpl_prodi_kategori',
         'cpl_prodi_kode',
         'cpl_prodi_deskripsi',
-        'pl_id',
         'created_at',
         'created_by',
         'updated_at',

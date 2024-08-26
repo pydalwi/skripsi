@@ -19,11 +19,7 @@ use App\Http\Controllers\Transactional\MkBkController;
 use App\Http\Controllers\Transactional\CplCpmkController;
 use App\Http\Controllers\Transactional\CplBkMkController;
 use App\Http\Controllers\Transactional\CplBkController;
-use App\Http\Controllers\Transactional\TahapMekanismePenilaianController;
-use App\Http\Controllers\Transactional\BobotpenilaiancplmkcpmkController;
-use App\Http\Controllers\Transactional\BobotpenilaianmkcplcpmkController;
-use App\Http\Controllers\Transactional\RumusanakhirmkController;
-use App\Http\Controllers\Transactional\RumusanakhircplController;
+
 use Illuminate\Support\Facades\Route;
 
 // Data Master
@@ -66,20 +62,7 @@ Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
 
     });
 
-//Referensi
-// Route::group(['prefix' => 'reference', 'middleware' => ['auth']], function() {
 
-   
-    // Referensi
-   // Route::resource('referensi', ReferensiController::class)->parameter('referensi', 'id');
-   // Route::post('referensi/list', [ReferensiController::class, 'list']);
-   // Route::get('referensi/{id}/delete', [ReferensiController::class, 'confirm']);
-   // 
-   // // Pokok Bahasan
-   // Route::resource('pokok_bahasan', PokokBahasanController::class)->parameter('pokok_bahasan', 'id');
-   // Route::post('pokok_bahasan/list', [PokokBahasanController::class, 'list']);
-   // Route::get('pokok_bahasan/{id}/delete', [PokokBahasanController::class, 'confirm']);
-// });
 
 //Data
 Route::group(['prefix' => 'data', 'middleware' => ['auth']], function() {
@@ -124,6 +107,8 @@ Route::group(['prefix' => 'data', 'middleware' => ['auth']], function() {
         
     // Struktur MK CPL
     Route::resource('strukturmkcpl', StrukturmkController::class)->parameter('strukturmkcpl','id');
+    Route::post('strukturmkcpl/list', [StrukturmkController::class, 'list']);
+    Route::get('strukturmkcpl/{id}/delete', [StrukturmkController::class, 'confirm']);
 });
 
 //Settings
@@ -170,30 +155,7 @@ Route::group(['prefix' => 'data', 'middleware' => ['auth']], function() {
     Route::post('cplbkmk/list', [CplBkMKController::class, 'list']);
     Route::get('cplbkmk/{id}/delete', [CplBkMKController::class, 'confirm']);
     
-    // Tahap Mekanisme Penilaian
-    Route::resource('mekanispenilaian', TahapMekanismePenilaianController::class);
-    //Route::post('mekanispenilaian/list', [TahapMekanismePenilaianController::class, 'list']);
-    //Route::get('mekanispenilaian/{id}/delete', [TahapMekanismePenilaianController::class, 'confirm']);
-
-    // Bobot Penilaian CPL MK CPMK
-    Route::resource('bobotpenilaicpl', BobotpenilaiancplmkcpmkController::class);
-    Route::post('bobotpenilaicpl/list', [BobotpenilaiancplmkcpmkController::class, 'list']);
-    Route::get('bobotpenilaicpl/{id}/delete', [BobotpenilaiancplmkcpmkController::class, 'confirm']);
-
-    // Bobot Penilaian  MK CPL CPMK
-    Route::resource('bobotpenilaimk', BobotpenilaianmkcplcpmkController::class);
-    Route::post('bobotpenilaimk/list', [BobotpenilaianmkcplcpmkController::class, 'list']);
-    Route::get('bobotpenilaimk/{id}/delete', [BobotpenilaianmkcplcpmkController::class, 'confirm']);
-  
-    // Rumusan Akhir MK
-    Route::resource('rumusanakhirmk', RumusanakhirmkController::class);
-    Route::post('rumusanakhirmk/list', [RumusanakhirmkController::class, 'list']);
-    Route::get('rumusanakhirmk/{id}/delete', [RumusanakhirmkController::class, 'confirm']);
-  
-    // Rumusan Akhir CPL
-    Route::resource('rumusanakhircpl', RumusanakhircplController::class);
-    Route::post('rumusanakhircpl/list', [RumusanakhircplController::class, 'list']);
-    Route::get('rumusanakhircpl/{id}/delete', [RumusanakhircplController::class, 'confirm']);
+   
 });
   
   

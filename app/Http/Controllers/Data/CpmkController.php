@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Models\Data\CpmkModel;
+use App\Models\Master\ProdiModel;
+use App\Models\Master\CplProdiModel;
+use App\Models\Master\MatkulModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -66,7 +69,10 @@ class CpmkController extends Controller
             'title' => 'Tambah ' . $this->menuTitle
         ];
 
-        return view($this->viewPath . 'action')
+        $cplprodi = CplProdiModel::all();
+        $matkul = MatkulModel::all();
+        $prodi = ProdiModel::all();
+        return view($this->viewPath . 'action', compact(['cplprodi'],['matkul'],['prodi']))
             ->with('page', (object) $page);
     }
 
@@ -78,8 +84,12 @@ class CpmkController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
 
             $rules = [
-                'cpmk_kode' => ['required', 'string', 'max:5'],
-                'cpmk_deskripsi' => 'required|string',
+                'cpmk_kode' => 'required',
+                'cpmk_deskripsi' => 'required',
+                'prodi_id' => 'required',
+                'cpl_prodi_id' => 'required',
+                'mk_id' => 'required',
+
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -116,9 +126,12 @@ class CpmkController extends Controller
         ];
 
         $data = CpmkModel::find($id);
-
+        $cplprodi = CplProdiModel::all();
+        $matkul = MatkulModel::all();
+        $prodi = ProdiModel::all();
+    
         return (!$data)? $this->showModalError() :
-            view($this->viewPath . 'action')
+            view($this->viewPath . 'action', compact(['cplprodi'],['matkul'],['prodi']))
                 ->with('page', (object) $page)
                 ->with('id', $id)
                 ->with('data', $data);
@@ -132,8 +145,12 @@ class CpmkController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
 
             $rules = [
-                'cpmk_kode' => ['required', 'string', 'max:5'],
-                'cpmk_deskripsi' => 'required|string',
+                'cpmk_kode' => 'required',
+                'cpmk_deskripsi' => 'required',
+                'prodi_id' => 'required',
+                'cpl_prodi_id' => 'required',
+                'mk_id' => 'required',
+
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -184,8 +201,12 @@ class CpmkController extends Controller
 
         return (!$data)? $this->showModalError() :
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
-                'Cpmk Kode' => $data->kode_cpmk,
-                'Cpmk Deskripsi' => $data->deskripsi_cpmk,
+                'cpmk_kode' => $data->cpmk_kode,
+                'cpmk_deskripsi' => $data->cpmk_deskripsi,
+                'prodi_id' => $data->prodi_id,
+                'cpl_prodi_id' => $data->cpl_prodi_id,
+                'mk_id' => $data->mk_id,
+
             ]);
     }
 

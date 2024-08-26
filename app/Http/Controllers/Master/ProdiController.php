@@ -47,7 +47,7 @@ class ProdiController extends Controller
         $this->authAction('read', 'json');
         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data  = ProdiModel::selectRaw('prodi_id', 'nama_prodi');
+        $data  = ProdiModel::all();
 
         return Datatables::of($data)
             ->addIndexColumn()

@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Dosen Kurikulum</th>
+                                    <th>Nama Kurikulum</th>
                                     <th>Kurikulum Tahun</th>
                                     <th>Aksi</th>
                                 </tr>

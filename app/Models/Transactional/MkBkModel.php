@@ -13,19 +13,20 @@ use App\Models\Master\ProdiModel;
 class MkBkModel extends AppModel
 {
     use SoftDeletes;
-    protected $table = 't_bk_mk';
-    protected $primaryKey = 'bk_mk_id';
+    protected $table = 't_mk_bk';
+    protected $primaryKey = 'mk_bk_id';
     protected $uniqueKey = '';
 
     protected static $_table = 't_bk_mk';
-    protected static $_primaryKey = 'bk_mk_id';
+    protected static $_primaryKey = 'mk_bk_id';
     protected static $_uniqueKey = '';
 
     protected $fillable = [
-        'bk_mk_id',
+        'mk_bk_id',
         'bk_id',
         'mk_id',
         'prodi_id',
+        'is_active',
         'created_at',
         'created_by',
         'updated_at',
@@ -44,4 +45,51 @@ class MkBkModel extends AppModel
     protected static $childModel = [
       
     ];
+    public static function setDefaultMkBk(){
+        $bahankajian = BahanKajianModel::select('bk_id','bk_kategori')->get();
+        
+
+        $ins = [];
+        foreach($bahankajian as $bk){
+            $matkul = MatkulModel::select('mk_id')
+                        ->where('bk_id', $bk->bk_id)->get();
+            
+            foreach($bahankajian as $bk){
+                $ins[] = [
+                    'mk_id' => $matkul->mk_id,
+                    'bk_id' => $bk->bk_id,
+                    'bk_kategori' => $bk->bk_kategori,
+                    'is_active' => 0,
+                ];
+            }
+        }
+
+        if(count($ins) > 0){
+            MkBkModel::upsert($ins, ['mk_id','bk_id'], ['is_active']);
+        }
+        return $bahankajian;
+
+    }
+
+
+
+    public static function updateMkBk($bk_id, $mkbk){
+        self::where('bk_id', $bk_id)->update(['is_active' => 0]);
+
+        if(is_array($mkbk) && count($mkbk) > 0){
+            $ins = [];
+            foreach($mkbk as $mk_id => $val){
+                foreach($val as $bk_id => $is_active){
+                    $ins[] = [
+                        'mk_id' => $mk_id,
+                        'bk_id' => $bk_id,
+                        'bk_kategori' => $bk_kategori,
+                        'is_active' => 1
+                    ];
+                }
+            }
+
+            MkBkModel::upsert($ins, ['mk_id','bk_id','bk_kategori'], ['is_active']);
+        }
+    }
 }

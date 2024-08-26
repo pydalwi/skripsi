@@ -50,4 +50,51 @@ class CplBkMkModel extends AppModel
     protected static $childModel = [
       
     ];
+    public static function setDefaultCplBkMk(){
+        $prodi = CplProdiModel::select('cpl_prodi_id','cpl_prodi_kategori')->get();
+        
+
+        $ins = [];
+        foreach($prodi as $p){
+            $bahankajian = BahanKajianModel::select('bk_id')
+                        ->where('bk_id', $bk->bk_id)->get();
+            
+            foreach($bahankajian as $bk){
+                $ins[] = [
+                    'cpl_sndikti_id' => $bk->cpl_sndikti_id,
+                    'cpl_prodi_id' => $p->cpl_prodi_id,
+                    'cpl_kategori' => $p->cpl_prodi_kategori,
+                    'is_active' => 0,
+                ];
+            }
+        }
+
+        if(count($ins) > 0){
+            CplBkModel::upsert($ins, ['bk_id','cpl_prodi_id'], ['is_active']);
+        }
+        return $prodi;
+
+    }
+
+
+
+    public static function updateCplBkMk($prodi_id, $cplbkmatriks){
+        self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
+
+        if(is_array($cplbkmatriks) && count($cplbkmatriks) > 0){
+            $ins = [];
+            foreach($cplbkmatriks as $bk_id => $val){
+                foreach($val as $cpl_prodi_id => $is_active){
+                    $ins[] = [
+                        'prodi_id' => $prodi_id,
+                        'bk_id' => $bk_id,
+                        'cpl_prodi_id' => $cpl_prodi_id,
+                        'is_active' => 1
+                    ];
+                }
+            }
+
+            CplBkModel::upsert($ins, ['prodi_id','bk_id','cpl_prodi_id'], ['is_active']);
+        }
+    }
 }

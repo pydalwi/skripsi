@@ -45,12 +45,15 @@
                                                 <span class="badge badge-primary">MK Wajib</span>
                                                 @break
                                             @case(1)
-                                                <span class="badge badge-warning">MK Pilihan</span>
+                                                <span class="badge badge-warning">MK Pilihan 1</span>
                                                 @break
                                             @case(2)
-                                                <span class="badge badge-danger">MKWK</span>
+                                                <span class="badge badge-warning">MK Pilihan 2</span>
                                                 @break
-                                            @default
+                                            @case(3)
+                                                <span class="badge badge-warning">MK Pilihan 3</span>
+                                                @break
+                                                @default
                                                 
                                         @endswitch</td>
                                         <td>

@@ -16,7 +16,18 @@
             <div class="modal-body">
                 <div class="form-message text-center"></div>
 
-                
+                <div class="form-group required row mb-2">
+                    <label class="col-sm-3 control-label col-form-label">Nama Program Studi</label>
+                    <div class="col-sm-9">
+                       <select name="prodi_id" id="prodi_id" class="form-control form-control-sm" required>
+                            <option value="">-- Pilih Program Studi --</option>
+                            @foreach ($prodi as $item)
+                                <option value="<?= $item->prodi_id ?>" {{ isset($data->prodi_id) && $data->prodi_id == $item->prodi_id ? 'selected' : '' }} >{{$item->prodi_id}} ({{$item->nama_prodi}})</option>
+                            @endforeach
+                       </select>
+                    </div>
+                </div>
+
                 <div class="form-group required row mb-2">
                     <label class="col-sm-3 control-label col-form-label">Kode MK</label>
                     <div class="col-sm-9">
@@ -64,11 +75,15 @@
                         </div>
                         <div class="icheck-{{ $theme->button }} d-inline">
                             <input type="radio" id="mk_kategori_radio_2" name="mk_kategori" value="1" <?php echo isset($data->mk_kategori) && $data->mk_kategori == '1' ?  'checked' : '' ?>>
-                            <label for="mk_kategori_radio_2">MK Pilihan</label>
+                            <label for="mk_kategori_radio_2">MK Pilihan 1</label>
+                        </div>
+                        <div class="icheck-{{ $theme->button }} d-inline">
+                            <input type="radio" id="mk_kategori_radio_3" name="mk_kategori" value="2" <?php echo isset($data->mk_kategori) && $data->mk_kategori == '2' ?  'checked' : '' ?>>
+                            <label for="mk_kategori_radio_3">MK Pilihan 2</label>
                         </div>
                         <div class="icheck-{{ $theme->button }} d-inline mr-2">
-                            <input type="radio" id="mk_kategori_radio_3" name="mk_kategori" value="2" <?php echo isset($data->mk_kategori) && $data->mk_kategori == '2' ?  'checked' : '' ?>>
-                            <label for="mk_kategori_radio_3">MKWK </label>
+                            <input type="radio" id="mk_kategori_radio_4" name="mk_kategori" value="3" <?php echo isset($data->mk_kategori) && $data->mk_kategori == '3' ?  'checked' : '' ?>>
+                            <label for="mk_kategori_radio_4">MK Pilihan 3 </label>
                         </div>
                     </div>
                 </div>

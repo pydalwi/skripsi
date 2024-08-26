@@ -20,11 +20,7 @@ use App\Http\Controllers\Transactional\MkBkController;
 use App\Http\Controllers\Transactional\CplCpmkController;
 use App\Http\Controllers\Transactional\CplBkMkController;
 use App\Http\Controllers\Transactional\CplBkController;
-use App\Http\Controllers\Transactional\TahapMekanismePenilaianController;
-use App\Http\Controllers\Transactional\BobotpenilaiancplmkcpmkController;
-use App\Http\Controllers\Transactional\BobotpenilaianmkcplcpmkController;
-use App\Http\Controllers\Transactional\RumusanakhirmkController;
-use App\Http\Controllers\Transactional\RumusanakhircplController;
+
 use App\Http\Controllers\Setting\GroupController;
 use App\Http\Controllers\Setting\MenuController;
 use App\Http\Controllers\Setting\UserController;
@@ -49,13 +45,13 @@ Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
 
     // Mata Kuliah
    Route::resource('matkul', MatkulController::class)->parameter('matkul', 'id');
-//   Route::post('matkul/list', [MatkulController::class, 'list']);
-//   Route::get('matkul/{id}/delete', [MatkulController::class, 'confirm']);
+   Route::post('matkul/list', [MatkulController::class, 'list']);
+   Route::get('matkul/{id}/delete', [MatkulController::class, 'confirm']);
 //
 //   // Cpl Sndikti
    Route::resource('cplsndikti', CplSndiktiController::class)->parameter('cplsndikti', 'id');
-//   Route::post('cplsndikti/list', [CplSndiktiController::class, 'list']);
-//   Route::get('cplsndikti/{id}/delete', [CplSndiktiController::class, 'confirm']);
+   Route::post('cplsndikti/list', [CplSndiktiController::class, 'list']);
+   Route::get('cplsndikti/{id}/delete', [CplSndiktiController::class, 'confirm']);
 //
 //    // Cpl Prodi
     Route::resource('cplprodi', CplProdiController::class)->parameter('cplprodi', 'id');
@@ -83,21 +79,8 @@ Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
 //   Route::get('rumpunmk/{id}/delete', [RumpunMkController::class, 'confirm']);
 //
    });
-//
-//Referensi
-// Route::group(['prefix' => 'reference', 'middleware' => ['auth']], function() {
 
-  
-   // Referensi
-  // Route::resource('referensi', ReferensiController::class)->parameter('referensi', 'id');
-  // Route::post('referensi/list', [ReferensiController::class, 'list']);
-  // Route::get('referensi/{id}/delete', [ReferensiController::class, 'confirm']);
-  // 
-  // // Pokok Bahasan
-  // Route::resource('pokok_bahasan', PokokBahasanController::class)->parameter('pokok_bahasan', 'id');
-  // Route::post('pokok_bahasan/list', [PokokBahasanController::class, 'list']);
-  // Route::get('pokok_bahasan/{id}/delete', [PokokBahasanController::class, 'confirm']);
-// });
+
 
 //Data
 route::group(['prefix' => 'data', 'middleware' => ['auth']], function() {

@@ -23,7 +23,10 @@ class CpmkDetailModel extends AppModel
     protected $fillable = [
         'cpmk_detail_id',
         'cpmk_id',
-        'kelompok_mk',
+        'sub_cpmk_kode',
+        'uraian_sub_cpmk',
+        'cpl_prodi_id',
+        'mk_id',
         'created_at',
         'created_by',
         'updated_at',

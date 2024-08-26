@@ -19,7 +19,7 @@
                    <select name="prodi_id" id="prodi_id" class="form-control form-control-sm" required>
                         <option value="">-- Pilih Prodi --</option>
                         @foreach ($prodi as $item)
-                            <option value="<?= $item->prodi_id ?>" {{ isset($data->prodi_id) && $data->prodi_id == $item->prodi_id ? 'selected' : '' }} >{{$item->nama_prodi}} ({{$item->tahun_prodi}})</option>
+                            <option value="<?= $item->prodi_id ?>" {{ isset($data->prodi_id) && $data->prodi_id == $item->prodi_id ? 'selected' : '' }} >{{$item->nama_prodi}}</option>
                         @endforeach
                    </select>
                 </div>

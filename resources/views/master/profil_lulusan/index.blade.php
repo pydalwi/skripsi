@@ -23,7 +23,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Kode PL</th> 
-                                    <th>Deskripsi PL  </th>
+                                    <th>Deskripsi PL</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

@@ -65,7 +65,7 @@
                         "bSearchable": true
                     },
                     {
-                        "mData": "kaprodi_tahun",
+                        "mData": "tahun",
                         "sClass": "",
                         "sWidth": "20%",
                         "bSortable": true,

@@ -22,6 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>
                                     <th>Kode CPMK</th>
                                     <th>Deskripsi CPMK</th>
                                     <th>Aksi</th>
@@ -58,14 +59,14 @@
                         "bSearchable": false
                     },
                     {
-                        "mData": "kode_cpmk",
+                        "mData": "cpmk_kode",
                         "sClass": "",
                         "sWidth": "20%",
                         "bSortable": true,
                         "bSearchable": true
                     },
                     {
-                        "mData": "deskripsi_cpmk",
+                        "mData": "cpmk_deskripsi",
                         "sClass": "",
                         "sWidth": "57%",
                         "bSortable": true,

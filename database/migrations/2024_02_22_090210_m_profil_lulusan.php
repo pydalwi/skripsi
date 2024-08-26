@@ -16,6 +16,7 @@ class MProfilLulusan extends Migration
         //
         Schema::create('m_profil_lulusan', function (Blueprint $table) {
             $table->id('pl_id');
+            $table->string('kode_pl')->index();
             $table->longText('deskripsi_pl')->index();
             $table->unsignedBigInteger('prodi_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();

@@ -25,12 +25,15 @@ class DashboardController extends Controller
 
 
     public function index(){
+
+        
         $this->authAction('read');
         $this->authCheckDetailAccess();
 
         $breadcrumb = [
             'title' => $this->menuTitle . ' - ' . Auth::user()->getRoleName(),        // judul menu
             'list' => ['Dashboard']             // breadcrumb
+            
         ];
 
         // untuk set aktif menu pada sidebar

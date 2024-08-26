@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Master\CplsndiktiModel;
-use App\Models\Master\PLModel;
+use App\Models\Master\ProdiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -64,8 +64,9 @@ class CplSndiktiController extends Controller
             'title' => 'Tambah ' . $this->menuTitle
         ];
         $cplsndikti = CplsndiktiModel::all();
-        $profil_lulusan = PLModel::join('m_prodi','m_profil_lulusan.prodi_id','=','m_prodi.prodi_id')->get();
-        return view($this->viewPath . 'action', compact(['profil_lulusan']))
+        $prodi = ProdiModel::all();
+       
+        return view($this->viewPath . 'action', compact(['prodi']))
             ->with('page', (object) $page);
             
     }
@@ -81,7 +82,7 @@ class CplSndiktiController extends Controller
                 'cpl_sndikti_kode' => 'required',
                 'cpl_sndikti_deskripsi' => 'required',
                 'cpl_sndikti_kategori' => 'required',
-                'pl_id' => 'required',
+                'prodi_id' => 'required',
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -118,9 +119,10 @@ class CplSndiktiController extends Controller
         ];
 
         $data = CplsndiktiModel::find($id);
-        $profil_lulusan = PLModel::join('m_prodi','m_profil_lulusan.prodi_id','=','m_prodi.prodi_id')->get();
+        $prodi = ProdiModel::find($id);
+   
         return (!$data)? $this->showModalError() :
-            view($this->viewPath . 'action', compact(['profil_lulusan']))
+            view($this->viewPath . 'action', compact(['prodi']))
                 ->with('page', (object) $page)
                 ->with('id', $id)
                 ->with('data', $data);
@@ -137,7 +139,7 @@ class CplSndiktiController extends Controller
                 'cpl_sndikti_kode' => 'required',
                 'cpl_sndikti_deskripsi' => 'required',
                 'cpl_sndikti_kategori' => 'required',
-                'pl_id' => 'required'
+                'prodi_id' => 'required'
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -191,7 +193,7 @@ class CplSndiktiController extends Controller
                 'cpl_sndikti_kode' => $data->cpl_sndikti_kode,
                 'cpl_sndikti_deskripsi' => $data->cpl_sndikti_deskripsi,
                 'cpl_sndikti_kategori' => $data->cpl_sndikti_kategori,
-                'pl_id' => $data->pl_id
+                'prodi_id' => $data->prodi_id
             ]);
     }
 

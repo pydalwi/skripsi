@@ -29,17 +29,17 @@
                             <input type="text" class="form-control form-control-sm" id="cpl_sndikti_kategori" placeholder="Kategori CPL Sndikti" name="cpl_sndikti_kategori" value="{{ isset($data->cpl_sndikti_kategori) ? $data->cpl_sndikti_kategori : '' }}"/>
                         </div>
                     </div>
-                <div class="form-group required row mb-2">
-                    <label class="col-sm-3 control-label col-form-label">Nama Profil Lulusan</label>
-                    <div class="col-sm-9">
-                       <select name="pl_id" id="pl_id" class="form-control form-control-sm" required>
-                            <option value="">-- Pilih Profil Lulusan --</option>
-                            @foreach ($profil_lulusan as $item)
-                                <option value="<?= $item->pl_id ?>" {{ isset($data->pl_id) && $data->pl_id == $item->pl_id ? 'selected' : '' }} >{{$item->kode_pl}} ({{$item->nama_prodi}} Tahun {{$item->tahun_prodi}})</option>
-                            @endforeach
-                       </select>
+                    <div class="form-group required row mb-2">
+                        <label class="col-sm-3 control-label col-form-label">Nama Program Studi</label>
+                        <div class="col-sm-9">
+                           <select name="prodi_id" id="prodi_id" class="form-control form-control-sm" required>
+                                <option value="">-- Pilih Program Studi --</option>
+                                @foreach ($prodi as $item)
+                                    <option value="<?= $item->prodi_id ?>" {{ isset($data->prodi_id) && $data->prodi_id == $item->prodi_id ? 'selected' : '' }} >{{$item->prodi_id}} ({{$item->nama_prodi}})</option>
+                                @endforeach
+                           </select>
+                        </div>
                     </div>
-                </div>
                 <div class="form-group required row mb-2">
                     <label class="col-sm-3 control-label col-form-label">Deskripsi CPL SnDikti</label>
                     <div class="col-sm-9">

@@ -78,7 +78,7 @@ class KaprodiController extends Controller
 
             $rules = [
                 'nama_prodi' => 'required|string',
-                'tahun_prodi' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2),
+                'tahun' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2),
                 'prodi_id' => 'required'
             ];
 
@@ -133,7 +133,7 @@ class KaprodiController extends Controller
 
             $rules = [
                 'nama_prodi' => 'required|string',
-                'tahun_prodi' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2),
+                'tahun' => 'required|digits:4|integer|min:2000|max:' . (date('Y') + 2),
                 'prodi_id' => 'required'
             ];
 
@@ -187,7 +187,7 @@ class KaprodiController extends Controller
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
                 
                 'Nama Prodi' => $data->prodi_name,
-                'Tahun Prodi'=> $data->tahun_prodi,
+                'Tahun'=> $data->tahun_kaprodi,
                 'prodi_id' => $data->prodi_id
             ]);
     }

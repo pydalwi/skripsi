@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Models\Data\CpmkDetailModel;
+use App\Models\Master\ProdiModel;
+use App\Models\Master\CplProdiModel;
+use App\Models\Master\MatkulModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,10 +23,11 @@ class CpmkDetailController extends Controller
     public function index(){
         $this->authAction('read');
         $this->authCheckDetailAccess();
+        
 
         $breadcrumb = [
             'title' => $this->menuTitle,
-            'list'  => ['Data', 'CPMK']
+            'list'  => ['Data', 'CPMK-Detail']
         ];
 
         $activeMenu = [
@@ -64,7 +69,10 @@ class CpmkDetailController extends Controller
             'title' => 'Tambah ' . $this->menuTitle
         ];
 
-        return view($this->viewPath . 'action')
+        $prodi = ProdiModel::all();
+        $cplprodi = CplProdiModel::all();
+        $matkul = MatkulModel::all();
+        return view($this->viewPath . 'action', compact(['cplprodi'],['matkul'],['prodi']))
             ->with('page', (object) $page);
     }
 
@@ -76,8 +84,12 @@ class CpmkDetailController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
 
             $rules = [
-                'cpmk_detail_kode' => ['required', 'string', 'max:5'],
-                'kelompok_mk' => 'required|string',
+                'sub_cpmk_kode' => 'required',
+                'uraian_sub_cpmk' => 'required',
+                'prodi_id' => 'required',
+                'cpl_prodi_id' => 'required',
+                'mk_id' => 'required',
+
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -116,7 +128,7 @@ class CpmkDetailController extends Controller
         $data = CpmkDetailModel::find($id);
 
         return (!$data)? $this->showModalError() :
-            view($this->viewPath . 'action')
+            view($this->viewPath . 'action', compact(['cplprodi'],['matkul'],['prodi']))
                 ->with('page', (object) $page)
                 ->with('id', $id)
                 ->with('data', $data);
@@ -130,8 +142,11 @@ class CpmkDetailController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
 
             $rules = [
-                'cpmk_detail_kode' => ['required', 'string', 'max:5'],
-                'kelompok_mk' => 'required|string',
+                'sub_cpmk_kode' => 'required',
+                'uraian_sub_cpmk' => 'required',
+                'prodi_id' => 'required',
+                'cpl_prodi_id' => 'required',
+                'mk_id' => 'required',
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -182,8 +197,11 @@ class CpmkDetailController extends Controller
 
         return (!$data)? $this->showModalError() :
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
-                'cpmk_detail_kode' => $data->cpmk_detail_kode,
-                'kelompok_mk' => $data->kelompok_mk,
+                'sub_cpmk_kode' => $data->sub_cpmk_kode,
+                'uraian_sub_cpmk' => $data->uraian_sub_cpmk,
+                'prodi_id' => $data->prodi_id,
+                'cpl_prodi_id' => $data->cpl_prodi_id,
+                'mk_id' => $data->mk_id,
             ]);
     }
 

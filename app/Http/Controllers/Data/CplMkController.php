@@ -44,7 +44,7 @@ class CplMkController extends Controller
         //trik kelola matrik
         $cplmk = [];
         foreach($data as $d){
-            $cplmk[$d->cpl_sndikti_id][$d->cpl_prodi_id] = $d->is_active;
+            $cplmk[$d->mk_id][$d->cpl_prodi_id] = $d->is_active;
         }
 
        // CplMatriksModel::setDefaultCplMatriks();
@@ -93,7 +93,7 @@ class CplMkController extends Controller
         $matriks = $request->input('matriks');       
         
         CplMkModel::updateMatriks(1, $matriks);
-        return redirect()->route('cplmatriks.index')->with('success', 'CplMatriks berhasil ditambahkan.');
+        return redirect()->route('cplmk.index')->with('success', 'CplMk berhasil ditambahkan.');
 
     }
 

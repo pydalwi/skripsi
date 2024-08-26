@@ -12,16 +12,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CplMkModel extends Model
 {
     use SoftDeletes;
-    protected $table = 'd_cpl_matriks';
-    protected $primaryKey = 'cpl_matriks_id';
+    protected $table = 'd_cpl_mk';
+    protected $primaryKey = 'cpl_mk_id';
     protected $uniqueKey = '';
 
-    protected static $_table = 'd_cpl_matriks';
-    protected static $_primaryKey = 'cpl_matriks_id';
+    protected static $_table = 'd_cpl_mk';
+    protected static $_primaryKey = 'cpl_mk_id';
     protected static $_uniqueKey = '';
 
     protected $fillable = [
-        'cpl_matriks_id',
+        'cpl_mk_id',
         'mk_id',
         'cpl_prodi_id',
         'cpl_kategori',
@@ -49,19 +49,18 @@ class CplMkModel extends Model
       
     ];
     public static function setDefaultCplMk(){
-        $prodi = CplProdiModel::select('cpl_prodi_id','mk_id','cpl_prodi_kategori')->get();
+        $prodi = CplProdiModel::select('cpl_prodi_id','mk_id')->get();
         
 
         $ins = [];
         foreach($prodi as $p){
-            $matkul = MatkulModel::select('mk_id')
-                        ->where('mk_id', $p->prodi_id)->get();
+            $matkul = CplMkModel::select('mk_id')
+                        ->where('pl_id', $p->pl_id)->get();
             
             foreach($matkul as $mk){
                 $ins[] = [
                     'mk_id' => $mk->mk_id,
                     'cpl_prodi_id' => $p->cpl_prodi_id,
-                    'prodi_id' => $p->prodi_id,
                     'is_active' => 0,
                 ];
             }
@@ -73,6 +72,9 @@ class CplMkModel extends Model
         return $prodi;
 
     }
+
+
+
     public static function updateCplMk($prodi_id, $cplmk){
         self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
 
@@ -89,7 +91,7 @@ class CplMkModel extends Model
                 }
             }
 
-            CplMatriksModel::upsert($ins, ['prodi_id','mk_id','cpl_prodi_id'], ['is_active']);
+            CplMkModel::upsert($ins, ['prodi_id','mk_id','cpl_prodi_id'], ['is_active']);
         }
     }
 }
