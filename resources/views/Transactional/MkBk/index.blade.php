@@ -34,7 +34,7 @@
                                     <th colspan="100%" class="text-center"> Bahan Kajian</th>
                                 </tr>
                                 <tr>
-                                    @foreach ($bahankajian as $bk)
+                                    @foreach ($bahan_kajian as $bk)
                                         <th>{{$bk->bk_kode}}</th> 
                                     @endforeach
                                 </tr>
@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$mk->mk_kode}}</td>
-                                        @foreach ($bahankajian as $bk)  
+                                        @foreach ($bahan_kajian as $bk)  
                                         <td>
                                             @if(isset($mkbk[$mk->mk_id][$bk->bk_id]))
                                                 <input {{ ($mkbk[$mk->mk_id][$bk->bk_id] == 1)? 'checked' : '' }} type="checkbox" name="mkbk[{{$mk->mk_id}}][{{$bk->bk_id}}]" value="1">

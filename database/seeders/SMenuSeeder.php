@@ -17,7 +17,7 @@ class SMenuSeeder extends Seeder
       DB::table('s_menu')->upsert([
             
         ['menu_id' => '1', 'menu_scope' => 'ALL', 'menu_code' => 'DASHBOARD', 'menu_name' => 'Dashboard', 'menu_url' => '/', 'menu_level' => '1', 'order_no' => '1', 'parent_id' => NULL, 'class_tag' => 'dashboard', 'icon' => 'fas fa-tachometer-alt', 'is_active' => '1'],
-    //    ['menu_id' => '2','menu_scope' => 'SUPER','menu_code' => 'DOSEN','menu_name' => 'Data Dosen','menu_url' => NULL,'menu_level' => '1','order_no' => '2','parent_id' => NULL,'class_tag' => 'dosen','icon' => 'fas fa-solid fa-user-tie','is_active' => '1'],
+        ['menu_id' => '2','menu_scope' => 'SUPER','menu_code' => 'DOSEN','menu_name' => 'Data Dosen','menu_url' => NULL,'menu_level' => '1','order_no' => '2','parent_id' => NULL,'class_tag' => 'dosen','icon' => 'fas fa-solid fa-user-tie','is_active' => '1'],
         ['menu_id' => '3', 'menu_scope' => 'ALL', 'menu_code' => 'MASTER', 'menu_name' => 'Data Master', 'menu_url' => NULL, 'menu_level' => '1', 'order_no' => '3', 'parent_id' => NULL, 'class_tag' => 'master', 'icon' => 'fas fa-th', 'is_active' => '1'],
         ['menu_id' => '4', 'menu_scope' => 'ALL', 'menu_code' => 'DATA', 'menu_name' => 'Data', 'menu_url' => NULL, 'menu_level' => '1', 'order_no' => '4', 'parent_id' => NULL, 'class_tag' => 'data', 'icon' => 'fas fa-database', 'is_active' => '1'],
         ['menu_id' => '5', 'menu_scope' => 'ALL', 'menu_code' => 'TRANSACTION', 'menu_name' => 'Transaksi', 'menu_url' => NULL, 'menu_level' => '1', 'order_no' => '5', 'parent_id' => NULL, 'class_tag' => 'transaction', 'icon' => 'fas fa-edit', 'is_active' => '1'],
@@ -30,7 +30,7 @@ class SMenuSeeder extends Seeder
         ['menu_id' => '10', 'menu_scope' => 'SUPER', 'menu_code' => 'SETTING.GROUP', 'menu_name' => 'Group Pengguna', 'menu_url' => 'setting/group', 'menu_level' => '2', 'order_no' => '74', 'parent_id' => '7', 'class_tag' => 'setting-group', 'icon' => 'fas fa-minus text-xs', 'is_active' => '1'],
         ['menu_id' => '11', 'menu_scope' => 'SUPER', 'menu_code' => 'SETTING.USER', 'menu_name' => 'Users', 'menu_url' => 'setting/user', 'menu_level' => '2', 'order_no' => '75', 'parent_id' => '7', 'class_tag' => 'setting-user', 'icon' => 'fas fa-minus text-xs', 'is_active' => '1'],
         ['menu_id' => '12', 'menu_scope' => 'SUPER', 'menu_code' => 'SETTING.MENU', 'menu_name' => 'Menu', 'menu_url' => 'setting/menu', 'menu_level' => '2', 'order_no' => '76', 'parent_id' => '7', 'class_tag' => 'setting-menu', 'icon' => 'fas fa-minus text-xs', 'is_active' => '1'],
-     //   ['menu_id' => '13','menu_scope' => 'SUPER','menu_code' => 'DOSEN.KELOLADOSEN','menu_name' => 'Dosen','menu_url' => 'dosen/kelola_dosen','menu_level' => '2','order_no' => '7','parent_id' => '2','class_tag' => 'dosen-kelola_dosen','icon' => 'fas fa-minus text-xs','is_active' => '1'],
+        ['menu_id' => '13','menu_scope' => 'SUPER','menu_code' => 'DOSEN.KELOLADOSEN','menu_name' => 'Dosen','menu_url' => 'dosen/kelola_dosen','menu_level' => '2','order_no' => '7','parent_id' => '2','class_tag' => 'dosen-kelola_dosen','icon' => 'fas fa-minus text-xs','is_active' => '1'],
 
 // ['menu_id' => '10', 'menu_scope' => 'ALL', 'menu_code' => 'SETTING.PROFILE', 'menu_name' => 'User Profile', 'menu_url' => 'setting/profile', 'menu_level' => '2', 'order_no' => '73', 'parent_id' => '6', 'class_tag' => 'setting-profile', 'icon' => 'fas fa-minus text-xs', 'is_active' => '1'],
         //MASTER

@@ -46,15 +46,15 @@ class MkBkModel extends AppModel
       
     ];
     public static function setDefaultMkBk(){
-        $bahankajian = BahanKajianModel::select('bk_id','bk_kategori')->get();
+        $bahan_kajian = BahanKajianModel::select('bk_id','bk_kategori')->get();
         
 
         $ins = [];
-        foreach($bahankajian as $bk){
+        foreach($bahan_kajian as $bk){
             $matkul = MatkulModel::select('mk_id')
                         ->where('bk_id', $bk->bk_id)->get();
             
-            foreach($bahankajian as $bk){
+            foreach($matkul as $mk){
                 $ins[] = [
                     'mk_id' => $matkul->mk_id,
                     'bk_id' => $bk->bk_id,
@@ -67,14 +67,14 @@ class MkBkModel extends AppModel
         if(count($ins) > 0){
             MkBkModel::upsert($ins, ['mk_id','bk_id'], ['is_active']);
         }
-        return $bahankajian;
+        return $bahan_kajian;
 
     }
 
 
 
-    public static function updateMkBk($bk_id, $mkbk){
-        self::where('bk_id', $bk_id)->update(['is_active' => 0]);
+    public static function updateMkBk($prodi_id, $mkbk){
+        self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
 
         if(is_array($mkbk) && count($mkbk) > 0){
             $ins = [];
@@ -83,13 +83,13 @@ class MkBkModel extends AppModel
                     $ins[] = [
                         'mk_id' => $mk_id,
                         'bk_id' => $bk_id,
-                        'bk_kategori' => $bk_kategori,
+                        'prodi_id' => $prodi_id,
                         'is_active' => 1
                     ];
                 }
             }
 
-            MkBkModel::upsert($ins, ['mk_id','bk_id','bk_kategori'], ['is_active']);
+            MkBkModel::upsert($ins, ['prodi_id','mk_id','bk_id'], ['is_active']);
         }
     }
 }

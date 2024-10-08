@@ -17,13 +17,6 @@ class MRumpunMk extends Migration
         Schema::create('m_rumpun_mk', function (Blueprint $table) {
             $table->id('rumpun_mk_id');
             $table->string('rumpun_mk', 100)->index();
-            $table->smallInteger('sks');
-            $table->smallInteger('semester');
-            $table->integer('jumlah_mk');
-            $table->string('Mk_wajib');
-            $table->string('Mk_pil');
-            $table->string('MKWK');
-            $table->tinyInteger('mk_jenis')->unsigned();
             $table->unsignedBigInteger('dosen_id')->index()->nullable();
             $table->unsignedBigInteger('kurikulum_id')->index();
             $table->dateTime('created_at')->nullable()->useCurrent();
@@ -32,8 +25,6 @@ class MRumpunMk extends Migration
             $table->integer('updated_by')->nullable()->index();
             $table->dateTime('deleted_at')->nullable()->index();
             $table->integer('deleted_by')->nullable()->index();
-            $table->unsignedBigInteger('prodi_id')->index();
-            $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
             $table->index(name:'fk_rumpun_mk1_idx',columns:'dosen_id');
             $table->index(name:'fk_rumpun_mk2_idx',columns:'kurikulum_id');
             $table->foreign(columns:'dosen_id',name:'fk_rumpun_mk1')->references('dosen_id')->on('d_dosen')->noActionOnDelete()->noActionOnUpdate();

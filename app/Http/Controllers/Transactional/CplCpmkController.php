@@ -147,12 +147,8 @@ class CplCpmkController extends Controller
             'bobot' => 'required|integer|min:0|max:100'
         ]);
 
-        $data = TahapMekanismePenilaian::find($id);
-        $total_bobot = TahapMekanismePenilaian::where('id', '!=', $id)->sum('bobot') + $request->bobot;
-
-        if ($total_bobot > 100) {
-            return back()->withErrors(['bobot' => 'Total bobot tidak boleh lebih dari 100%']);
-        }
+        $data = CplCpmkModel::find($id);
+       }
 
         $data->update($request->all());
         return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil diperbarui.');
@@ -165,9 +161,11 @@ class CplCpmkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        TahapMekanismePenilaian::destroy($id);
-        return redirect()->route('tahap_mekanisme_penilaian.index')->with('success', 'Data berhasil dihapus.');
+        CplCpmkModel::destroy($id);
+        return redirect()->route('cplcpmk.index')->with('success', 'Data berhasil dihapus.');
     }
-}
+
+
+

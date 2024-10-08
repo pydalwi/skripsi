@@ -20,6 +20,17 @@ class DatabaseSeeder extends Seeder
             SUserSeeder::class,
             SMenuSeeder::class,
             SGroupMenuSeeder::class,
+
+            MProdiSeeder::class,
+            MCplProdiSeeder::class,
+            MCplSndiktiSeeder::class,
+            MPeriode::class,
+            DDosenSeeder::class,
+            DKurikulumSeeder::class,
+            DRumpunMKSeeder::class,
+            DKaprodiSeeder::class,
+            DKurikulumMKSeeder::class,           
+            MBkSeeder::class,
         ]);
     }
 }

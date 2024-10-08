@@ -89,29 +89,6 @@ class BahanKajianModel extends AppModel
             ->first();
     }
 
-    public static function updateDatabk($id, $prodi_id, $mk_id, $bk_kode, $bk_deskripsi)
-    {
-        try {
-            DB::beginTransaction();
 
-            // Update data in m_bahan_kajian
-            DB::table('m_bahan_kajian')->where('bk_id', $id)->update([
-                'prodi_id' => $prodi_id,
-                'bk_kode' => $bk_kode,
-                'bk_deskripsi' => $bk_deskripsi
-            ]);
-
-            // Update data in t_mk_bk
-            DB::table('t_mk_bk')->where('bk_id', $id)->update([
-                'mk_id' => $mk_id
-            ]);
-
-            DB::commit();
-            return true;
-        } catch (\Exception $e) {
-            DB::rollback();
-            return false;
-        }
-    }
 
 }

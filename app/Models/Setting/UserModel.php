@@ -69,9 +69,17 @@ class UserModel extends Authenticatable
         return ($this->role->group_code == 'SPR' && $this->role->group_id == 1);
     }
 
-    public function isAdmin()
+    public function isDosen()
     {
-        return ($this->role->group_code == 'ADM' && $this->role->group_id == 2);
+        return ($this->role->group_code == 'DSN' && $this->role->group_id == 2);
+    }
+    public function isDosenKurikulum()
+    {
+        return ($this->role->group_code == 'DKR' && $this->role->group_id == 3);
+    }
+    public function isKaprodi()
+    {
+        return ($this->role->group_code == 'KPR' && $this->role->group_id == 4);
     }
 
 

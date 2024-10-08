@@ -12,19 +12,18 @@
                         </h3>
                         <div class="card-tools">
                             @if($allowAccess->create)
-                            <div class="d-flex align-items-center">
-                            <button type="button" data-block="body" class="btn btn-sm btn-{{ $theme->button }} mt-1 ajax_modal" data-url="{{ $page->url }}/create"><i class="fas fa-plus"></i> Tambah</button>
+                                <button type="button" data-block="body" class="btn btn-sm btn-{{ $theme->button }} mt-1 ajax_modal" data-url="{{ $page->url }}/create"><i class="fas fa-plus"></i> Tambah</button>
                             @endif
                         </div>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                        <table class="table table-striped table-hover table-full-width" id="table_master">
+                        <table class="table table-striped table-hover table-full-width" id="table_data">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kode Profil Lulusan</th> 
-                                    <th>Deskripsi Profil Lulusan</th>
+                                    <th>Kode Indikator CPL</th>
+                                    <th>Indikator Kinerja CPL</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -40,47 +39,40 @@
     <script>
         $(document).ready(function() {
 
-            // $('.filter_combobox').select2();
+            $('.filter_combobox').select2();
 
             var v = 0;
-            dataMaster = $('#table_master').DataTable({
+            dataData = $('#table_data').DataTable({
                 "bServerSide": true,
                 "bAutoWidth": false,
                 "ajax": {
                     "url": "{{ $page->url }}/list",
                     "dataType": "json",
                     "type": "POST"
-                }, 
+                },
                 "aoColumns": [{
                         "mData": "no",
                         "sClass": "text-center",
                         "sWidth": "5%",
                         "bSortable": false,
-                        "bSearchable": false,
+                        "bSearchable": false
                     },
-                     {
-                         "mData": "prodi_id",
-                         "sClass": "",
-                         "sWidth": "20%",
-                         "bSortable": true,
-                         "bSearchable": true
-                     },
                     {
-                        "mData": "kode_pl",
+                        "mData": "cpl_indikator_kode",
                         "sClass": "",
                         "sWidth": "20%",
                         "bSortable": true,
                         "bSearchable": true
                     },
                     {
-                        "mData": "deskripsi_pl",
+                        "mData": "cpl_indikator_kinerja",
                         "sClass": "",
                         "sWidth": "57%",
                         "bSortable": true,
                         "bSearchable": true
                     },
                     {
-                        "mData": "pl_id",
+                        "mData": "cpl_indikator_id",
                         "sClass": "text-center pr-2",
                         "sWidth": "10%",
                         "bSortable": false,
@@ -100,7 +92,7 @@
 
             $('.dataTables_filter input').unbind().bind('keyup', function(e) {
                 if (e.keyCode == 13) {
-                    dataMaster.search($(this).val()).draw();
+                    dataData.search($(this).val()).draw();
                 }
             });
         });

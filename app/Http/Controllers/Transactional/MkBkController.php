@@ -39,22 +39,22 @@ class MkBkController extends Controller
         ];
 
         $data = MkBkModel::selectRaw('is_active, bk_id, mk_id')->where('bk_id', 1)->get();
-        $bahankajian = BahanKajianModel::where('bk_id', 1)->get();
+        $bahan_kajian = BahanKajianModel::all();
         $matkul = MatkulModel::all();
 
-        //trik kelola matrik
+        
         $mkbk = [];
         foreach($data as $d){
             $mkbk[$d->mk_id][$d->bk_id] = $d->is_active;
         }
 
-       // CplMatriksModel::setDefaultCplMatriks();
+
         return view($this->viewPath . 'index')
             ->with('breadcrumb', (object) $breadcrumb) 
             ->with('activeMenu', (object) $activeMenu)
             ->with('page', (object) $page)
             ->with('mkbk',$mkbk)
-            ->with('bahankajian',$bahankajian)
+            ->with('bahan_kajian',$bahan_kajian)
             ->with('matkul',$matkul)
             ->with('allowAccess', $this->authAccessKey());
     }
@@ -169,7 +169,6 @@ class MkBkController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
 
             $rules = [
-           
            'mk_id' => 'required|integer',
            'bk_id' => 'required|integer',
            'is_active' => 'required|boolean',           ];
@@ -184,7 +183,7 @@ class MkBkController extends Controller
                 ]);
             }
 
-            $res = CplMatriksModel::updateData($id, $request);
+            $res = MkBkModel::updateData($id, $request);
 
             return response()->json([
                 'stat' => $res,
@@ -202,7 +201,7 @@ class MkBkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $this->authAction('delete', 'json');
         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();

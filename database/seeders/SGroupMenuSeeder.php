@@ -16,7 +16,7 @@ class SGroupMenuSeeder extends Seeder
     public function run()
     {
         $menu_super = [];
-        $menu_admin = [];
+        $menu_dosen = [];
         $menu_dokur = [];
         $menu_kaprodi = [];
         
@@ -45,7 +45,7 @@ class SGroupMenuSeeder extends Seeder
     //    }//
 
         DB::table('s_group_menu')->insert($menu_super);
-        DB::table('s_group_menu')->insert($menu_admin);
+        DB::table('s_group_menu')->insert($menu_dosen);
 
     }
 }

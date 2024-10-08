@@ -60,7 +60,7 @@ class CplBkController extends Controller
         $this->authAction('read', 'json');
         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        $data  = ProdiModel::all();
+        $data  = CplBkModel::all();
 
         return DataTables::of($data)
             ->addIndexColumn()
@@ -193,7 +193,7 @@ class CplBkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+    public function destroy(Request $request, $id){
     $this->authAction('delete', 'json');
     if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 

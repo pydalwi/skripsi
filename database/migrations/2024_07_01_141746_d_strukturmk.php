@@ -20,7 +20,6 @@ class DStrukturmk extends Migration
             $table->smallInteger('jumlah_mk');
             $table->string('Mk_wajib');
             $table->string('Mk_pil');
-            $table->string('MKWK');
             $table->tinyInteger('mk_jenis')->unsigned();
             $table->boolean('is_active')->default(false);
             $table->tinyInteger('struktur_mk_check')->default(0);

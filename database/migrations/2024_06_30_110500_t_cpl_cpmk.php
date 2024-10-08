@@ -13,7 +13,7 @@ class TCplCpmk extends Migration
      */
     public function up()
     {
-        //
+        
         Schema::create('t_cpl_cpmk', function (Blueprint $table) {
             $table->id('cpl_cpmk_id');
             $table->unsignedBigInteger('cpl_prodi_id')->nullable()->index();
@@ -36,6 +36,8 @@ class TCplCpmk extends Migration
             $table->foreign(columns:'cpmk_id',name:'fk_tcpl_cpmk2')->references('cpmk_id')->on('d_cpmk')
             ->noActionOnDelete()
             ->noActionOnUpdate();
+            $table->unsignedBigInteger('cpmk_detail_id')->index();
+            $table->foreign('cpmk_detail_id')->references('cpmk_detail_id')->on('d_cpmk_detail');
         });
     }
 

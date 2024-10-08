@@ -18,7 +18,7 @@ class TCplBkMk extends Migration
             $table->id('cpl_bk_mk_id');
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->unsignedBigInteger('mk_id')->index();
-            $table->unsignedBigInteger('cpl_bk_id')->index();
+            $table->unsignedBigInteger('bk_id')->index();
             $table->boolean('is_active')->default(false);
             $table->tinyInteger('cpl_bk_mk_check')->default(0);
             $table->dateTime('created_at')->nullable()->useCurrent();
@@ -31,14 +31,14 @@ class TCplBkMk extends Migration
             $table->foreign('prodi_id')->references('prodi_id')->on('m_prodi');
             $table->index(name:'fk_tcpl_bk_mk1_idx',columns:'cpl_prodi_id');
             $table->index(name:'fk_tcpl_bk_mk2_idx',columns:'mk_id');
-            $table->index(name:'fk_tcpl_bk_mk3_idx',columns:'cpl_bk_id');
+            $table->index(name:'fk_tcpl_bk_mk3_idx',columns:'bk_id');
             $table->foreign(columns:'cpl_prodi_id',name:'fk_tcpl_bk_mk1')->references('cpl_prodi_id')->on('m_cpl_prodi')
             ->noActionOnDelete()
             ->noActionOnUpdate();
             $table->foreign(columns:'mk_id',name:'fk_tcpl_bk_mk2')->references('mk_id')->on('m_mk')
             ->noActionOnDelete()
             ->noActionOnUpdate();
-            $table->foreign(columns:'cpl_bk_id',name:'fk_tcpl_bk_mk3')->references('cpl_bk_id')->on('t_cpl_bk')
+            $table->foreign(columns:'bk_id',name:'fk_tcpl_bk_mk3')->references('bk_id')->on('m_bahan_kajian')
             ->noActionOnDelete()
             ->noActionOnUpdate();
         });

@@ -90,9 +90,9 @@ class CplMkController extends Controller
 
     public function store(Request $request){
         
-        $matriks = $request->input('matriks');       
+        $cplmk = $request->input('cplmk');       
         
-        CplMkModel::updateMatriks(1, $matriks);
+        CplMkModel::updateCplMk(1, $cplmk);
         return redirect()->route('cplmk.index')->with('success', 'CplMk berhasil ditambahkan.');
 
     }

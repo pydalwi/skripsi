@@ -18,6 +18,7 @@ class DCpmkDetail extends Migration
             $table->id('cpmk_detail_id');
             $table->string('sub_cpmk_kode')->nullable();
             $table->text('uraian_sub_cpmk')->nullable();
+            $table->string('indikator_sub_cpmk')->nullable();
             $table->unsignedBigInteger('cpmk_id')->index();
             $table->unsignedBigInteger('cpl_prodi_id')->index();
             $table->unsignedBigInteger('mk_id')->index();
