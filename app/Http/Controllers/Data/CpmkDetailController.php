@@ -86,6 +86,7 @@ class CpmkDetailController extends Controller
             $rules = [
                 'sub_cpmk_kode' => 'required',
                 'uraian_sub_cpmk' => 'required',
+                'indikator_sub_cpmk' => 'required',
                 'prodi_id' => 'required',
                 'cpl_prodi_id' => 'required',
                 'mk_id' => 'required',
@@ -144,6 +145,7 @@ class CpmkDetailController extends Controller
             $rules = [
                 'sub_cpmk_kode' => 'required',
                 'uraian_sub_cpmk' => 'required',
+                'indikator_sub_cpmk' => 'required',
                 'prodi_id' => 'required',
                 'cpl_prodi_id' => 'required',
                 'mk_id' => 'required',
@@ -199,6 +201,7 @@ class CpmkDetailController extends Controller
             $this->showModalConfirm($this->menuUrl.'/'.$id, [
                 'sub_cpmk_kode' => $data->sub_cpmk_kode,
                 'uraian_sub_cpmk' => $data->uraian_sub_cpmk,
+                'indikator_sub_cpmk' => $data->indikator_sub_cpmk,
                 'prodi_id' => $data->prodi_id,
                 'cpl_prodi_id' => $data->cpl_prodi_id,
                 'mk_id' => $data->mk_id,

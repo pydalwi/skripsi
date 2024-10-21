@@ -13,6 +13,7 @@ use App\Http\Controllers\Master\BahanKajianController;
 use App\Http\Controllers\Master\CplSnDiktiController;
 use App\Http\Controllers\Master\CplProdiController;
 use App\Http\Controllers\Master\MatkulController;
+use App\Http\Controllers\Master\CplIndikatorController;
 use App\Http\Controllers\Master\RumpunMkController;
 use App\Http\Controllers\Master\ProdiController;
 use App\Http\Controllers\Master\PLController;
@@ -25,20 +26,20 @@ use App\Http\Controllers\Setting\GroupController;
 use App\Http\Controllers\Setting\MenuController;
 use App\Http\Controllers\Setting\UserController;
 use App\Http\Controllers\Setting\PeriodeController;
-use App\Htto\Controllers\Dosen\DosenController;
+use App\Http\Controllers\Dosen\DosenController;
 use Illuminate\Support\Facades\Route;
 
-//Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 //
-//   // Kelola Dosen
-//   Route::resource('kelola_dosen', DosenController::class)->parameter('kelola_dosen', 'id');
-//   Route::post('kelola_dosen/list', [DosenController::class, 'list']);
-//   Route::get('kelola_dosen/{id}/delete', [DosenController::class, 'confirm']);
-//   Route::get('kelola_dosen/show', [DosenController::class, 'show'])->name('show-data');
-//   Route::get('kelola_dosen/menu_save', [DosenController::class, 'menu_save']);
+   // Kelola Dosen
+   Route::resource('kelola_dosen', DosenController::class)->parameter('kelola_dosen', 'id');
+   Route::post('kelola_dosen/list', [DosenController::class, 'list']);
+   Route::get('kelola_dosen/{id}/delete', [DosenController::class, 'confirm']);
+   Route::get('kelola_dosen/show', [DosenController::class, 'show'])->name('show-data');
+   Route::get('kelola_dosen/menu_save', [DosenController::class, 'menu_save']);
 //
 //
-//});
+});
 
 // Data Master
 Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
@@ -73,6 +74,10 @@ Route::group(['prefix' => 'master', 'middleware' => ['auth']], function() {
 //   Route::post('profil_lulusan/list', [PLController::class, 'list']);
 //   Route::get('profil_lulusan/{id}/delete', [PLController::class, 'confirm']);
 //
+// CPL Indikator
+   Route::resource('cplindikator', CplIndikatorController::class)->parameter('cplindikator', 'id');
+   Route::post('cplindikator/list', [CplIndikatorController::class, 'list']);
+   Route::get('cplindikator/{id}/delete', [CplIndikatorController::class, 'confirm']);
    // Rumpun Mata Kuliah
    Route::resource('rumpunmk', RumpunMkController::class)->parameter('rumpun_mk', 'id');
 //   Route::post('rumpunmk/list', [RumpunMkController::class, 'list']);

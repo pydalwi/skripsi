@@ -24,6 +24,7 @@ class CpmkDetailModel extends AppModel
         'cpmk_detail_id',
         'cpmk_id',
         'sub_cpmk_kode',
+        'indikator_sub_cpmk',
         'uraian_sub_cpmk',
         'cpl_prodi_id',
         'mk_id',

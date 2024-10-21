@@ -58,13 +58,13 @@
                         "bSortable": false,
                         "bSearchable": false,
                     },
-                     {
-                         "mData": "prodi_id",
-                         "sClass": "",
-                         "sWidth": "20%",
-                         "bSortable": true,
-                         "bSearchable": true
-                     },
+                   //  {
+                   //      "mData": "prodi_id",
+                   //      "sClass": "",
+                   //      "sWidth": "20%",
+                   //      "bSortable": true,
+                   //      "bSearchable": true
+                   //  },
                     {
                         "mData": "kode_pl",
                         "sClass": "",
