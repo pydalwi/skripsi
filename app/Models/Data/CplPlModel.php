@@ -70,7 +70,7 @@ class CplPlModel extends AppModel
         return $prodi;
 
     }
-    public static function updateCplpl($prodi_id, $cplpl){
+    public static function updateCplPl($prodi_id, $cplpl){
         self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
 
         if(is_array($cplpl) && count($cplpl) > 0){

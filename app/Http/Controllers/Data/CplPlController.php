@@ -53,7 +53,7 @@ class CplPlController extends Controller
             ->with('breadcrumb', (object) $breadcrumb)
             ->with('activeMenu', (object) $activeMenu)
             ->with('page', (object) $page)
-            ->with('data',$data)
+            ->with('cplpl',$cplpl)
             ->with('cpl_prodi',$cpl_prodi)
             ->with('profil_lulusan',$profil_lulusan)
             ->with('allowAccess', $this->authAccessKey());
@@ -92,7 +92,7 @@ class CplPlController extends Controller
 
         $cplpl = $request->input('cplpl');       
         
-        CplPlModel::updateCplpl(1, $cplpl);
+        CplPlModel::updateCplPl(1, $cplpl);
         return redirect()->route('cplpl.index')->with('success', 'Cpl Profil Lulusan berhasil ditambahkan.');
 
     }
@@ -149,19 +149,19 @@ class CplPlController extends Controller
     }
 
     public function show($id){
-        // $this->authAction('read', 'modal');
-        // if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
+         $this->authAction('read', 'modal');
+         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
-        // $data = JurusanModel::find($id);
-        // $page = [
-        //     'title' => 'Detail ' . $this->menuTitle
-        // ];
+         $data = CplPlModel::find($id);
+         $page = [
+             'title' => 'Detail ' . $this->menuTitle
+         ];
 
-        // return (!$data)? $this->showModalError() :
-        //     view($this->viewPath . 'detail')
-        //         ->with('page', (object) $page)
-        //         ->with('id', $id)
-        //         ->with('data', $data);
+         return (!$data)? $this->showModalError() :
+         view($this->viewPath . 'detail')
+                 ->with('page', (object) $page)
+                 ->with('id', $id)
+                 ->with('data', $data);
     }
 
 

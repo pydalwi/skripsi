@@ -30,7 +30,7 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">No</th>
-                                    <th rowspan="2">CPL - PRODI</th>
+                                    <th rowspan="2">Kode CPL</th>
                                     <th colspan="100%" class="text-center"> Profil Lulusan (PL) </th>
                                 </tr>
                                 <tr>
@@ -47,7 +47,7 @@
                                         @foreach ($profil_lulusan as $pl)  
                                         <td>
                                             @if(isset($cplpl[$cp->cpl_prodi_id][$pl->pl_id]))
-                                                <input {{ ($cplpl[$cp->cpl_prodi_id][$pl->pl_id] == 1)? 'checked' : '' }} type="checkbox" name="matriks[{{$cp->cpl_prodi_id}}][{{$pl->pl_id}}]" value="1">
+                                                <input {{ ($cplpl[$cp->cpl_prodi_id][$pl->pl_id] == 1)? 'checked' : '' }} type="checkbox" name="cplpl[{{$cp->cpl_prodi_id}}][{{$pl->pl_id}}]" value="1">
                                             @else
                                                 <input type="checkbox" name="cplpl[{{$cp->cpl_prodi_id}}][{{$pl->pl_id}}]" value="1">
                                             @endif

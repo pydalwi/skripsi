@@ -38,10 +38,10 @@ class MkBkController extends Controller
             'title' => 'Daftar '. $this->menuTitle
         ];
 
-        $data = MkBkModel::selectRaw('is_active, bk_id, mk_id')->where('bk_id', 1)->get();
+        $data = MkBkModel::selectRaw('is_active, bk_id, mk_id')->get();
         $bahan_kajian = BahanKajianModel::all();
         $matkul = MatkulModel::all();
-
+//dd($data);
         
         $mkbk = [];
         foreach($data as $d){
@@ -100,7 +100,7 @@ class MkBkController extends Controller
     {
         
         $mkbk = $request->input('mkbk');       
-        
+        dd($request->all());
         MkBkModel::updateMkBk(1, $mkbk);
         return redirect()->route('mkbk.index')->with('success', 'MkBk berhasil ditambahkan.');
     }
@@ -167,7 +167,7 @@ class MkBkController extends Controller
         if($this->authCheckDetailAccess() !== true) return $this->authCheckDetailAccess();
 
         if ($request->ajax() || $request->wantsJson()) {
-
+            dd($request->all());
             $rules = [
            'mk_id' => 'required|integer',
            'bk_id' => 'required|integer',

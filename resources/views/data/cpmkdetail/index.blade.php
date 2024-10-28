@@ -22,9 +22,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>
-                                    <th>Kode CPMK</th>
-                                    <th>Deskripsi CPMK</th>
+                                    <th>Kode sub CPMK</th>
+                                    <th>Indikator subCPMK</th>
+                                    <th>Uraian subCPMK</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -62,6 +62,13 @@
                         "mData": "sub_cpmk_kode",
                         "sClass": "",
                         "sWidth": "20%",
+                        "bSortable": true,
+                        "bSearchable": true
+                    },
+                    {
+                        "mData": "indikator_sub_cpmk",
+                        "sClass": "",
+                        "sWidth": "50%",
                         "bSortable": true,
                         "bSearchable": true
                     },

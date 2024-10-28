@@ -51,19 +51,19 @@
                         <textarea rows="10" cols="30" type="text" class="form-control form-control-sm" id="cpmk_deskripsi" placeholder="Deskripsi CPMK" name="cpmk_deskripsi">{{ isset($data->cpmk_deskripsi) ? $data->cpmk_deskripsi : '' }}</textarea>
                     </div>
                 </div>
-            </div>
-           {{-- <div class="form-group required row mb-2">
+            </div> 
+            <div class="form-group required row mb-2">
                 <label class="col-sm-3 control-label col-form-label">MK</label>
                 <div class="col-sm-9">
-                   <select name="mk_id[]" id="mk_id" class="form-control form-control-sm" required multiple>
-                        <option value="">-- MK --</option>
+                   <select name="mk_id" id="mk_id" class="form-control form-control-sm" required>
+                        <option value="">-- Pilih Matakuliah --</option>
                         @foreach ($matkul as $item)
-                            <option value="<?= $item->mk_id ?>" {{ isset($data->mk_id) && $data->mk_id == $item->mk_id ? 'selected' : '' }} >{{$item->mk_kode}}</option>
+                            <option value="<?= $item->mk_id ?>" {{ isset($data->mk_id) && $data->mk_id == $item->mk_id ? 'selected' : '' }} >{{$item->mk_kode}} - {{$item->mk_nama}}</option>
                         @endforeach
                    </select>
                 </div>
-            </div> --}}
-            <div class="form-group required row mb-2">
+            </div> 
+         {{--   <div class="form-group required row mb-2">
                 <label class="col-sm-3 control-label col-form-label">MK</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -78,13 +78,13 @@
                                     {{ isset($data->mk_id) && in_array($item->mk_id, $data->mk_id) ? 'checked' : '' }}
                                 >
                                 <label class="form-check-label" for="mk_id_{{ $item->mk_id }}">
-                                    {{ $item->mk_kode }}
+                                    {{ $item->mk_kode }} - {{ $item->mk_nama}}
                                 </label>
                             </div>
                         @endforeach
                     </div>
                 </div>
-            </div>
+            </div> --}}
             
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>

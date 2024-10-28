@@ -43,13 +43,13 @@
                                 @foreach ($bahan_kajian as $bk)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$bk->bk_kode}}</td>
+                                        <td>{{$bk->bk_id}}</td>
                                         @foreach ($cpl_prodi as $cp)  
                                         <td>
-                                            @if(isset($cplbkmatriks[$bk->bk_id][$cp->cpl_prodi_id]))
-                                                <input {{ ($cplbkmatriks[$bk->bk_id][$cp->cpl_prodi_id] == 1)? 'checked' : '' }} type="checkbox" name="matriks[{{$bk->bk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                            @if(isset($cplbk[$bk->bk_id][$cp->cpl_prodi_id]))
+                                                <input {{ ($cplbk[$bk->bk_id][$cp->cpl_prodi_id] == 1)? 'checked' : '' }} type="checkbox" name="cplbk[{{$bk->bk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
                                             @else
-                                                <input type="checkbox" name="cplbkmatriks[{{$bk->bk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                                <input type="checkbox" name="cplbk[{{$bk->bk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
                                             @endif
                                         </td>
                                         @endforeach

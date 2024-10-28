@@ -25,6 +25,7 @@ class CplsndiktiModel extends AppModel
         'cpl_sndikti_id',
         'cpl_sndikti_kategori',
         'cpl_sndikti_deskripsi',
+        'prodi_id',
         'created_at',
         'created_by',
         'updated_at',

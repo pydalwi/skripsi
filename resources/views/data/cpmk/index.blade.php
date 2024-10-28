@@ -22,7 +22,6 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>
                                     <th>Kode CPMK</th>
                                     <th>Deskripsi CPMK</th>
                                     <th>Aksi</th>

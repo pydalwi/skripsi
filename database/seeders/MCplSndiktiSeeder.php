@@ -13,7 +13,7 @@ class MCplSndiktiSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('m_cpl_prodi')->insert([
+        DB::table('m_cpl_sndikti')->insert([
             ['cpl_sndikti_id' => 1, 'prodi_id' => 1, 'cpl_sndikti_kode' => 'CPLS01', 'cpl_sndikti_kategori' => 'Sikap(S)', 'cpl_sndikti_deskripsi' => 'Bertakwa kepada Tuhan Yang Maha Esa dan mampu menunjukkan sikap religious.'],
             ['cpl_sndikti_id' => 2, 'prodi_id' => 1, 'cpl_sndikti_kode' => 'CPLS02', 'cpl_sndikti_kategori' => 'Sikap(S)', 'cpl_sndikti_deskripsi' => 'Menjunjung tinggi nilai kemanusiaan dalam menjalankan tugas berdasarkan agama, moral dan etika.'],
             ['cpl_sndikti_id' => 3, 'prodi_id' => 1, 'cpl_sndikti_kode' => 'CPLS03', 'cpl_sndikti_kategori' => 'Sikap(S)', 'cpl_sndikti_deskripsi' => 'Menguasai metode pengembangan produk TIK untuk memberikan solusi yang tepat melalui satu atau lebih domain aplikasi.'],

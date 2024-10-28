@@ -79,12 +79,12 @@ class CplBkModel extends AppModel
 
 
 
-    public static function updateCplBkMatriks($prodi_id, $cplbkmatriks){
+    public static function updateCplBk($prodi_id, $cplbk){
         self::where('prodi_id', $prodi_id)->update(['is_active' => 0]);
 
-        if(is_array($cplbkmatriks) && count($cplbkmatriks) > 0){
+        if(is_array($cplbk) && count($cplbk) > 0){
             $ins = [];
-            foreach($cplbkmatriks as $bk_id => $val){
+            foreach($cplbk as $bk_id => $val){
                 foreach($val as $cpl_prodi_id => $is_active){
                     $ins[] = [
                         'prodi_id' => $prodi_id,

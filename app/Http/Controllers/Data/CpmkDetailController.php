@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
 use App\Models\Data\CpmkDetailModel;
+use App\Models\Data\CpmkModel;
 use App\Models\Master\ProdiModel;
 use App\Models\Master\CplProdiModel;
 use App\Models\Master\MatkulModel;
@@ -72,7 +73,8 @@ class CpmkDetailController extends Controller
         $prodi = ProdiModel::all();
         $cplprodi = CplProdiModel::all();
         $matkul = MatkulModel::all();
-        return view($this->viewPath . 'action', compact(['cplprodi'],['matkul'],['prodi']))
+        $cpmk = CpmkModel::all();
+        return view($this->viewPath . 'action', compact(['cplprodi'],['cpmk'],['matkul'],['prodi']))
             ->with('page', (object) $page);
     }
 
@@ -90,6 +92,8 @@ class CpmkDetailController extends Controller
                 'prodi_id' => 'required',
                 'cpl_prodi_id' => 'required',
                 'mk_id' => 'required',
+                'cpmk_id' => 'required',
+                
 
             ];
 
@@ -129,7 +133,7 @@ class CpmkDetailController extends Controller
         $data = CpmkDetailModel::find($id);
 
         return (!$data)? $this->showModalError() :
-            view($this->viewPath . 'action', compact(['cplprodi'],['matkul'],['prodi']))
+            view($this->viewPath . 'action', compact(['cplprodi'],['cpmk'],['matkul'],['prodi']))
                 ->with('page', (object) $page)
                 ->with('id', $id)
                 ->with('data', $data);
@@ -149,6 +153,7 @@ class CpmkDetailController extends Controller
                 'prodi_id' => 'required',
                 'cpl_prodi_id' => 'required',
                 'mk_id' => 'required',
+                'cpmk_id' => 'required',
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -205,6 +210,7 @@ class CpmkDetailController extends Controller
                 'prodi_id' => $data->prodi_id,
                 'cpl_prodi_id' => $data->cpl_prodi_id,
                 'mk_id' => $data->mk_id,
+                'cpmk_id' => $data->cpmk_id,
             ]);
     }
 

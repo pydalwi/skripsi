@@ -38,7 +38,7 @@ class CplBkController extends Controller
             'title' => 'Daftar '. $this->menuTitle
         ];
 
-        $data = CplBkModel::selectRaw('is_active, cpl_prodi_id, bk_id')->where('prodi_id', 1)->get();
+        $data = CplBkModel::selectRaw('is_active, cpl_prodi_id, bk_id')->get();
         $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
         $bahan_kajian = BahanKajianModel::all();
 
