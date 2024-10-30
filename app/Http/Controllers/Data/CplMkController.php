@@ -37,7 +37,7 @@ class CplMkController extends Controller
             'url' => $this->menuUrl,
             'title' => 'Daftar '. $this->menuTitle
         ];
-        $data = CplMkModel::selectRaw('is_active, cpl_prodi_id, mk_id')->where('prodi_id', 1)->get();
+        $data = CplMkModel::selectRaw('is_active, cpl_prodi_id, mk_id')->get();
         $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
         $matkul = MatkulModel::all();
 
@@ -93,7 +93,7 @@ class CplMkController extends Controller
         $cplmk = $request->input('cplmk');       
         
         CplMkModel::updateCplMk(1, $cplmk);
-        return redirect()->route('cplmk.index')->with('success', 'CplMk berhasil ditambahkan.');
+        return redirect()->route('cplmk.index')->with('success', 'CPLMK berhasil diubah.');
 
     }
 

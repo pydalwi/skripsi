@@ -49,7 +49,7 @@
                                             @if(isset($cplmk[$mk->mk_id][$cp->cpl_prodi_id]))
                                                 <input {{ ($cplmk[$mk->mk_id][$cp->cpl_prodi_id] == 1)? 'checked' : '' }} type="checkbox" name="cplmk[{{$mk->mk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
                                             @else
-                                                <input type="checkbox" name="matriks[{{$mk->mk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
+                                                <input type="checkbox" name="cplmk[{{$mk->mk_id}}][{{$cp->cpl_prodi_id}}]" value="1">
                                             @endif
                                         </td>
                                         @endforeach

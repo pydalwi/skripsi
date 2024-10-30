@@ -43,7 +43,7 @@
                                 @foreach ($bahan_kajian as $bk)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$bk->bk_id}}</td>
+                                        <td>{{$bk->bk_kode}}</td>
                                         @foreach ($cpl_prodi as $cp)  
                                         <td>
                                             @if(isset($cplbk[$bk->bk_id][$cp->cpl_prodi_id]))

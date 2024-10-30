@@ -94,7 +94,7 @@ class CplMatriksController extends Controller
         $matriks = $request->input('matriks');       
         
         CplMatriksModel::updateMatriks(1, $matriks);
-        return redirect()->route('cplmatriks.index')->with('success', 'CplMatriks berhasil ditambahkan.');
+        return redirect()->route('cplmatriks.index')->with('success', 'CPLMatriks berhasil diubah.');
 
     }
 

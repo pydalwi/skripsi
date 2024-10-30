@@ -100,9 +100,9 @@ class MkBkController extends Controller
     {
         
         $mkbk = $request->input('mkbk');       
-        dd($request->all());
+        //dd($request->all());
         MkBkModel::updateMkBk(1, $mkbk);
-        return redirect()->route('mkbk.index')->with('success', 'MkBk berhasil ditambahkan.');
+        return redirect()->route('mkbk.index')->with('success', 'MKBK berhasil diubah.');
     }
 
     /**

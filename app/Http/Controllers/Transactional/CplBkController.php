@@ -98,7 +98,7 @@ class CplBkController extends Controller
         $cplbk = $request->input('cplbk');       
         
         CplBkModel::updateCplBk(1, $cplbk);
-        return redirect()->route('cplbk.index')->with('success', 'CplBk berhasil ditambahkan.');
+        return redirect()->route('cplbk.index')->with('success', 'CPLBK berhasil diubah.');
    
     }
 

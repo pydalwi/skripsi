@@ -38,7 +38,7 @@ class CplPlController extends Controller
             'title' => 'Daftar '. $this->menuTitle
         ];
 
-        $data = CplPlModel::selectRaw('is_active, cpl_prodi_id, pl_id')->where('prodi_id', 1)->get();
+        $data = CplPlModel::selectRaw('is_active, cpl_prodi_id, pl_id')->get();
         $cpl_prodi = CplProdiModel::where('prodi_id', 1)->get();
         $profil_lulusan = PLModel::all();
 
@@ -93,7 +93,7 @@ class CplPlController extends Controller
         $cplpl = $request->input('cplpl');       
         
         CplPlModel::updateCplPl(1, $cplpl);
-        return redirect()->route('cplpl.index')->with('success', 'Cpl Profil Lulusan berhasil ditambahkan.');
+        return redirect()->route('cplpl.index')->with('success', 'CPL Profil Lulusan berhasil diubah.');
 
     }
 
